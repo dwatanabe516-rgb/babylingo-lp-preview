@@ -63,13 +63,14 @@
       z-index: 5;
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 12px 8px;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 12px 8px;
       background: transparent;
     }
     .logo { flex: 0 0 auto; }
     .logo img {
-      height: 46px;
+      height: 54px;
       width: auto;
       filter: drop-shadow(0 1px 4px rgba(0,0,0,.45));
     }
@@ -1084,25 +1085,35 @@
     .mv-kicker {
       position: static;
       z-index: 6;
-      flex: 1;
+      flex: 0 1 auto;
       min-width: 0;
       margin: 0;
-      text-align: left;
       color: #fff;
+      text-align: center;
       font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
-      font-weight: 900;
-      font-size: clamp(10px, 2.5vw, 13px);
-      line-height: 1.45;
+      font-weight: 700;
+      line-height: 1.35;
     }
     .mv-kicker .mark {
       display: inline-block;
-      margin: 0 2px 0 0;
-      padding: 0 6px;
+      margin: 0 0 3px;
+      padding: 1px 8px;
       border-radius: 999px;
       background: #c46752;
-      font-size: .86em;
-      letter-spacing: .04em;
-      vertical-align: 1px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .06em;
+    }
+    .mv-kicker .kicker-line,
+    .mv-kicker .kicker-sub,
+    .mv-kicker .kicker-name { display: block; white-space: nowrap; }
+    .mv-kicker .kicker-line { font-size: 11px; font-weight: 700; }
+    .mv-kicker .kicker-sub { margin-top: 2px; font-size: 11px; font-weight: 700; }
+    .mv-kicker .kicker-name {
+      margin-top: 1px;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .03em;
     }
     .mv-caption {
       position: absolute;
@@ -1673,9 +1684,11 @@
           <img src="img/logo_top.png" alt="0歳からのおうち英語 BabyLingo!" width="240" height="62" />
         </a>
         <p class="mv-kicker">
-          <span class="mark">特許取得</span>＼ わが子をバイリンガルに育て上げた親たちが開発／<br />
-          おうち英語プログラム<br />
-          BabyLingo!
+          <span class="mark">特許取得</span>
+          <span class="kicker-line">＼ わが子をバイリンガルに</span>
+          <span class="kicker-line">育て上げた親たちが開発 ／</span>
+          <span class="kicker-sub">おうち英語プログラム</span>
+          <span class="kicker-name">BabyLingo!</span>
         </p>
       </header>
       <div class="mv-stage">
