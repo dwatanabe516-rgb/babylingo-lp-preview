@@ -75,48 +75,41 @@
     /* 縦動画MV */
     .mv-screen {
       position: relative;
-      height: 100svh;
-      max-height: 100svh;
+      height: auto;
       display: flex;
       flex-direction: column;
       background: #1a1614;
       overflow: hidden;
     }
+    .mv-screen .site-header { position: relative; }
     .mv-stage {
-      flex: 1;
+      flex: 0 0 auto;
       min-height: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 56px 0 64px;
+      padding: 0 0 8px;
     }
     .mv-screen .video-player {
-      width: min(100%, calc((100svh - 120px) * 9 / 16));
-      height: min(100%, calc(100svh - 120px));
-      aspect-ratio: 9 / 16;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
       margin: 0 auto;
       border-radius: 0;
       background: #000;
     }
     .mv-screen .video-player video {
-      object-fit: cover;
+      object-fit: contain;
       background: #000;
     }
-    .mv-screen::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 96px;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
-      pointer-events: none;
-      z-index: 3;
-    }
+    .mv-screen::after { content: none; }
     .mv-scroll {
-      position: absolute;
+      position: relative;
       z-index: 6;
-      left: 50%;
-      bottom: calc(12px + var(--safe-b));
-      transform: translateX(-50%);
+      left: auto;
+      bottom: auto;
+      margin: 4px auto 16px;
+      transform: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -133,7 +126,7 @@
       -webkit-tap-highlight-color: transparent;
     }
     .mv-scroll svg { width: 20px; height: 20px; display: block; }
-    .mv-scroll:active { transform: translateX(-50%) scale(.94); }
+    .mv-scroll:active { transform: scale(.94); }
     .mv-scroll.is-hidden,
     .mv-scroll.is-scrolling {
       opacity: 0;
@@ -141,8 +134,8 @@
       animation: none;
     }
     @keyframes mvBob {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(5px); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
     }
 
     .video-player {
@@ -950,6 +943,20 @@
       color: #5a4038;
       font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
     }
+    .trust-lux-inner > p a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .trust-logo {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0 8px;
+    }
+    .trust-logo img {
+      width: min(240px, 72%);
+      height: auto;
+    }
 
     /* 最終一言 → 説明会CTA */
     .closing {
@@ -1057,19 +1064,15 @@
     .panel-lead { margin: 0; }
 
     .mv-kicker {
-      position: absolute;
+      position: relative;
       z-index: 6;
-      top: 68px;
-      left: 14px;
-      right: 14px;
-      margin: 0;
+      margin: 4px 14px 12px;
       text-align: center;
       color: #fff;
       font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
       font-weight: 900;
       font-size: 15px;
       line-height: 1.55;
-      text-shadow: 0 2px 10px rgba(0,0,0,.7);
     }
     .mv-kicker .mark {
       display: inline-block;
@@ -1080,13 +1083,6 @@
       font-size: 12px;
       letter-spacing: .08em;
     }
-    .mv-screen .video-player iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-    }
-    .mv-screen .vbar { display: none; }
     .patent-seal {
       display: inline-flex;
       align-items: center;
@@ -1127,6 +1123,13 @@
       font-weight: 800;
       color: var(--coral-deep);
       font-size: 14px;
+    }
+    .guarantee a,
+    .price-foot a {
+      color: inherit;
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
     .plan-list { display: grid; gap: 12px; margin-top: 14px; }
     .plan-card {
@@ -1602,12 +1605,16 @@
       </p>
       <div class="mv-stage">
         <div class="video-player" data-video-player>
-          <iframe
-            src="https://drive.google.com/file/d/1qcH7GxUTIt5OZnkGyAGc38u6HUdVxLRp/preview"
+          <video
+            src="img/hero.mp4"
+            muted
+            autoplay
+            loop
+            playsinline
+            webkit-playsinline
+            preload="auto"
             title="説明会向け動画"
-            allow="autoplay; fullscreen"
-            allowfullscreen
-          ></iframe>
+          ></video>
           <div class="vbar" data-vbar>
             <div class="vbar-progress" data-vbar-seek aria-label="再生位置">
               <div class="vbar-progress-fill" data-vbar-fill></div>
@@ -1658,7 +1665,7 @@
             </p>
           </div>
           <p class="cta-month">月額 <em>¥1,980〜</em>（税込）</p>
-          <p class="guarantee">安心の返金保証制度あり</p>
+          <p class="guarantee"><a href="https://www.babypark-eigo.jp/qr/hosyo/" target="_blank" rel="noopener">安心の返金保証制度あり</a></p>
           <hr class="cta-dots" />
           <p class="cta-brand-pill">BabyLingo!</p>
           <h3 class="cta-offer-ttl">「無料ZOOM説明会」</h3>
@@ -1769,7 +1776,7 @@
         <h2 class="section-ttl">バイリンガルって、<br />こんな感じ</h2>
         <div class="movie-embed">
           <iframe
-            src="https://www.youtube.com/embed/ygV-baL8z_k?rel=0"
+            src="https://www.youtube.com/embed/F9eRO94hTwI?rel=0"
             title="BabyLingo! バイリンガル紹介動画"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
@@ -1823,7 +1830,7 @@
         </div>
         <ul class="price-foot">
           <li>※ 税込・自動更新</li>
-          <li>安心の返金保証制度あり</li>
+          <li><a href="https://www.babypark-eigo.jp/qr/hosyo/" target="_blank" rel="noopener">安心の返金保証制度あり</a></li>
         </ul>
       </div>
       </div>
@@ -1898,7 +1905,10 @@
     <section class="trust-lux">
       <div class="trust-lux-inner">
         <p class="trust-line">BABYPARK × BABYLINGO!</p>
-        <p>全国で親子教室を展開する「ベビーパーク」が監修。</p>
+        <a class="trust-logo" href="https://www.babypark.jp/" target="_blank" rel="noopener">
+          <img src="img/logo-bp.png" alt="ベビーパーク" width="280" height="80" />
+        </a>
+        <p>全国で親子教室を展開する「<a href="https://www.babypark.jp/" target="_blank" rel="noopener">ベビーパーク</a>」が監修。</p>
       </div>
     </section>
 
