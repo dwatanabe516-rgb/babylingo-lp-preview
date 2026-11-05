@@ -447,8 +447,8 @@
       line-height: 1.45;
       color: #3d322e;
       text-align: center;
-      word-break: keep-all;
-      letter-spacing: .06em;
+      overflow-wrap: break-word;
+      letter-spacing: .02em;
       text-shadow:
         0 0 2px #fff,
         1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff;
@@ -532,7 +532,7 @@
       font-size: 13.5px;
       font-weight: 700;
       line-height: 1.55;
-      word-break: keep-all;
+      overflow-wrap: break-word;
       color: #245a57;
       box-shadow: 0 10px 22px rgba(42, 122, 118, .14);
     }
@@ -1078,8 +1078,8 @@
       font-weight: 700;
       line-height: 1.95;
       color: #3d322e;
-      letter-spacing: .04em;
-      word-break: keep-all;
+      letter-spacing: .02em;
+      overflow-wrap: break-word;
     }
     .closing-quote .em {
       display: block;
@@ -1863,8 +1863,8 @@
     <section class="sec-lux is-mint" id="worries">
       <div class="sec-lux-inner">
       <p class="sec-ribbon is-mint">まずはココ、あるあるです</p>
-      <h2 class="section-ttl">おうち英語に興味はあるけれど…<br />こんなモヤモヤ、ありませんか？</h2>
-      <h3 class="talk-lead">言語科学やバイリンガル育児の成功者たちの答えは共通しています。</h3>
+      <h2 class="section-ttl">おうち英語に興味は<br />あるけれど…<br />こんなモヤモヤ、<br />ありませんか？</h2>
+      <h3 class="talk-lead">言語科学やバイリンガル育児の<br />成功者たちの答えは共通しています。</h3>
       <ul class="worry-list">
         <li>
           <span class="worry-face" aria-hidden="true">
@@ -1926,7 +1926,7 @@
     <section class="sec-lux is-soft" id="features">
       <div class="sec-lux-inner">
       <p class="sec-ribbon"><span class="patent-seal">特許</span>特許取得　BabyLingo!だからできること</p>
-      <h2 class="section-ttl">BabyLingo!はなぜ、<br />バイリンガルを育てられるのか</h2>
+      <h2 class="section-ttl">BabyLingo!はなぜ、<br />バイリンガルを<br />育てられるのか</h2>
 
       <article class="panel">
         <div class="panel-head">01 成功者共通の「語りかけ」</div>
@@ -2088,9 +2088,11 @@
     <section class="closing" id="closing" aria-label="クロージングメッセージ">
       <div class="closing-inner">
         <p class="closing-quote">
-          今日、その小さな手の中に握られているのは、<br />
+          今日、その小さな手の中に<br />
+          握られているのは、<br />
           お母様の指かもしれません。<br />
-          でも、その手がいつか、世界中の人々と握手を交わし、<br />
+          でも、その手がいつか、<br />
+          世界中の人々と握手を交わし、<br />
           自分の夢を掴む未来のために。
           <span class="em">
             「0歳からのおうち英語」は、<br />
