@@ -1080,6 +1080,36 @@
       font-size: 12px;
       letter-spacing: .08em;
     }
+    .mv-screen .video-player iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    .mv-screen .vbar { display: none; }
+    .patent-seal {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      margin-right: 6px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      font-size: 9px;
+      letter-spacing: 0;
+      vertical-align: middle;
+    }
+    .start-card .badge-reco {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: #f57f64;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+    }
     .mv-about {
       padding: 26px var(--pad) 6px;
       background: #fffaf6;
@@ -1566,14 +1596,18 @@
       </header>
       <p class="mv-kicker">
         <span class="mark">特許取得</span><br />
-        わが子をバイリンガルに育て上げた親たちが賛同<br />
-        おうち英語プログラム Baby Lingo!
+        わが子をバイリンガルに育て上げた親たちが開発<br />
+        おうち英語プログラム<br />
+        BabyLingo!
       </p>
       <div class="mv-stage">
         <div class="video-player" data-video-player>
-          <video muted autoplay loop playsinline webkit-playsinline preload="auto" aria-label="縦動画（実績・なぜ0歳など）">
-            <source src="img/result.mp4" type="video/mp4" />
-          </video>
+          <iframe
+            src="https://drive.google.com/file/d/1qcH7GxUTIt5OZnkGyAGc38u6HUdVxLRp/preview"
+            title="説明会向け動画"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+          ></iframe>
           <div class="vbar" data-vbar>
             <div class="vbar-progress" data-vbar-seek aria-label="再生位置">
               <div class="vbar-progress-fill" data-vbar-fill></div>
@@ -1606,7 +1640,7 @@
     </section>
 
     <section class="mv-about" aria-label="プログラムの説明">
-      <p>Baby Lingo!は、実際にわが子をバイリンガルに育て上げた親たちが、「英語が話せない家庭でも再現できる方法」を追求して作ったプログラムです。</p>
+      <p>BabyLingo!は、実際にわが子をバイリンガルに育て上げた親たちが、「英語が話せない家庭でも再現できる方法」を追求して作ったプログラムです。</p>
     </section>
 
     <!-- ② 即CTA -->
@@ -1639,8 +1673,8 @@
     <!-- ③ お悩み図 -->
     <section class="sec-lux is-mint" id="worries">
       <div class="sec-lux-inner">
-      <p class="sec-ribbon is-mint">おうち英語に興味はあるけれど…</p>
-      <h2 class="section-ttl">こんなモヤモヤ、<br />ありませんか？</h2>
+      <p class="sec-ribbon is-mint">まずはココ、あるあるです</p>
+      <h2 class="section-ttl">おうち英語に興味はあるけれど…<br />こんなモヤモヤ、ありませんか？</h2>
       <ul class="worry-list">
         <li>
           <span class="worry-face" aria-hidden="true">
@@ -1667,27 +1701,51 @@
           <p class="worry-bubble">親の私が英語苦手なのに、<br />家で教えられる…？</p>
         </li>
       </ul>
+      <div class="why-block">
+        <h3>言語科学やバイリンガル育児の成功者たちの答えは共通しています。</h3>
+        <div class="faq-box">
+          <details class="faq" open>
+            <summary>日本語もまだなのに、英語を始めて大丈夫？</summary>
+            <p>2歳までが最も自然に両立できるゴールデンタイム</p>
+          </details>
+          <details class="faq" open>
+            <summary>英語はもう少し大きくなってからでいいのでは？</summary>
+            <p>「言語の黄金期である0〜3歳」を逃さないことが最短ルートです。</p>
+          </details>
+          <details class="faq" open>
+            <summary>英語をやらせたいけど、結局何をするのが正解？</summary>
+            <p>教室やインターでも高額教材でもなく、「日常の中に英語がある環境（おうち英語）」を作ることです。</p>
+          </details>
+          <details class="faq" open>
+            <summary>親の私が英語苦手なのに、家で教えられる…？</summary>
+            <p>親御さんの英語力は一切関係ありません。</p>
+          </details>
+        </div>
+        <p class="panel-note">バイリンガルキッズを育てる方法を詳しく教えます！</p>
+        <p style="text-align:center;margin-top:14px">
+          <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">説明会で詳しく見る<span class="go" aria-hidden="true">→</span></a>
+        </p>
+      </div>
       </div>
     </section>
 
     <!-- ④ 特長パネル（要点のみ／詳細は説明会） -->
     <section class="sec-lux is-soft" id="features">
       <div class="sec-lux-inner">
-      <p class="sec-ribbon">特許取得</p>
-      <h2 class="section-ttl">BabyLingo!だから<br />できること</h2>
-      <p class="panel-note" style="margin:0 0 16px">BabyLingo!はなぜ、バイリンガルを育てられるのか。</p>
+      <p class="sec-ribbon"><span class="patent-seal">特許</span>特許取得　BabyLingo!だからできること</p>
+      <h2 class="section-ttl">BabyLingo!はなぜ、<br />バイリンガルを育てられるのか</h2>
 
       <article class="panel">
         <div class="panel-head">01 成功者共通の「語りかけ」</div>
         <div class="panel-body">
-          <p class="panel-lead">お母さまが英語を話せなくても、子どもの発語を引き出す<span class="hl">「語りかけの仕組み」</span>があります。</p>
+          <p class="panel-lead">お母さまが英語を話せなくても、子どもの発話を引き出す<span class="hl">「語りかけの仕組み」</span>があります。</p>
         </div>
       </article>
 
       <article class="panel">
         <div class="panel-head">02 日常に定着する「連動型コンテンツ」</div>
         <div class="panel-body">
-          <p class="panel-lead">同じフレーズに自然と何度も出会う設計で、<span class="hl">自然と発話する</span>仕組みがあります。</p>
+          <p class="panel-lead">同じフレーズに自然と何度も出会う設計で、<span class="hl">自然と定着する仕掛け</span>があります。</p>
         </div>
       </article>
 
@@ -1697,7 +1755,10 @@
           <p class="panel-lead">「これで合ってる？」をひとりで抱えない、<span class="hl">おうち英語を習慣化する伴走体制</span>が整っています。</p>
         </div>
       </article>
-      <p class="panel-note">家庭で育てる実践ステップも、説明会でお伝えします</p>
+      <p class="panel-note">家庭で育てる実践ステップを、説明会でお伝えします</p>
+      <p style="text-align:center;margin-top:14px">
+        <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">説明会で詳しく見る<span class="go" aria-hidden="true">→</span></a>
+      </p>
       </div>
     </section>
 
@@ -1708,10 +1769,11 @@
         <h2 class="section-ttl">バイリンガルって、<br />こんな感じ</h2>
         <div class="movie-embed">
           <iframe
-            src="https://drive.google.com/file/d/1qcH7GxUTIt5OZnkGyAGc38u6HUdVxLRp/preview"
-            title="説明会用の動画"
-            allow="autoplay; fullscreen"
+            src="https://www.youtube.com/embed/ygV-baL8z_k?rel=0"
+            title="BabyLingo! バイリンガル紹介動画"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
+            loading="lazy"
           ></iframe>
         </div>
         <p class="movie-cap">
@@ -1775,18 +1837,19 @@
         <div class="start-list">
           <article class="start-card is-a">
             <h3>A. 無料説明会から申し込む</h3>
-            <p>まずは進め方やメリットを確認したい方へ。おすすめです。</p>
+            <p class="badge-reco">おすすめ</p>
+            <p>まずは進め方やメソッドを確認したい方へ</p>
             <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">無料説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
           </article>
           <article class="start-card is-b">
             <h3>B. 今すぐ直接申し込む</h3>
-            <p>説明会は不要です。すぐに受講をスタートしたい方へ。</p>
-            <a class="btn" href="https://lingo.babypark.jp/signup" target="_blank" rel="noopener">今すぐ申し込む<span class="go" aria-hidden="true">→</span></a>
+            <p>説明会不要で、すぐに受講をスタートしたい方へ</p>
+            <a class="btn" href="https://lingo.babypark.jp/signup" target="_blank" rel="noopener">申し込む<span class="go" aria-hidden="true">→</span></a>
           </article>
           <article class="start-card is-c">
             <h3>C. 個別に問い合わせる</h3>
             <p>事前に聞いておきたい疑問や不安がある方へ。</p>
-            <span class="wait">お問い合わせフォームのリンクは確認中です</span>
+            <span class="wait">お問い合わせフォーム（喜田先生にリンクを確認）</span>
           </article>
         </div>
       </div>
@@ -1828,28 +1891,6 @@
         <p>大丈夫です。相性がいいです。</p>
       </details>
       </div>
-      <div class="why-block">
-        <h3>言語科学やバイリンガル育児の成功者たちの答えは、共通しています。</h3>
-        <div class="faq-box">
-          <details class="faq" open>
-            <summary>日本語もまだなのに、英語を始めて大丈夫？</summary>
-            <p>2歳までが、最も自然に再立できるゴールデンタイムです。</p>
-          </details>
-          <details class="faq" open>
-            <summary>英語はもう少し大きくなってからでいいのでは？</summary>
-            <p>「言語の黄金期である0〜2歳」を逃さないことが、最短ルートです。</p>
-          </details>
-          <details class="faq" open>
-            <summary>英語をやらせたいけど、結局何をするのが正解？</summary>
-            <p>教室やインターネットでも高額教材でもなく、「日常の中に英語がある環境（おうち英語）」を作ることです。</p>
-          </details>
-          <details class="faq" open>
-            <summary>親の私が英語苦手なのに、家で教えられる…？</summary>
-            <p>親御さんの英語力は、一切関係ありません。</p>
-          </details>
-        </div>
-        <p class="panel-note">バイリンガルキッズを育てる方法は、説明会で詳しくお伝えします。</p>
-      </div>
       </div>
     </section>
 
@@ -1857,7 +1898,7 @@
     <section class="trust-lux">
       <div class="trust-lux-inner">
         <p class="trust-line">BABYPARK × BABYLINGO!</p>
-        <p>全国で親子教室を展開するベビーパークが監修しています。</p>
+        <p>全国で親子教室を展開する「ベビーパーク」が監修。</p>
       </div>
     </section>
 
