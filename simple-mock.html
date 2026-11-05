@@ -63,11 +63,13 @@
       z-index: 5;
       display: flex;
       align-items: center;
-      padding: 14px var(--pad) 10px;
+      gap: 8px;
+      padding: 10px 12px 8px;
       background: transparent;
     }
+    .logo { flex: 0 0 auto; }
     .logo img {
-      height: 40px;
+      height: 46px;
       width: auto;
       filter: drop-shadow(0 1px 4px rgba(0,0,0,.45));
     }
@@ -433,7 +435,7 @@
       display: block;
       filter: drop-shadow(0 10px 16px rgba(42, 122, 118, .2));
     }
-    .worry-bubble {
+    .worry-bubble b { margin-right: 4px; }
       flex: 1;
       position: relative;
       padding: 16px 15px;
@@ -1067,34 +1069,53 @@
       color: var(--muted);
       font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
     }
+    #features .panel-head {
+      font-size: 14.5px;
+      letter-spacing: 0;
+      white-space: nowrap;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
     .panel-body .panel-points,
     .panel-body .grid-fig { display: none !important; }
     .panel-body { padding: 22px 18px 20px; }
     .panel-lead { margin: 0; }
 
     .mv-kicker {
-      position: absolute;
+      position: static;
       z-index: 6;
-      top: 68px;
-      left: 14px;
-      right: 14px;
+      flex: 1;
+      min-width: 0;
       margin: 0;
-      text-align: center;
+      text-align: left;
       color: #fff;
       font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
       font-weight: 900;
-      font-size: 15px;
-      line-height: 1.55;
-      text-shadow: 0 2px 10px rgba(0,0,0,.7);
+      font-size: clamp(10px, 2.5vw, 13px);
+      line-height: 1.45;
     }
     .mv-kicker .mark {
       display: inline-block;
-      margin-bottom: 6px;
-      padding: 2px 10px;
+      margin: 0 2px 0 0;
+      padding: 0 6px;
       border-radius: 999px;
       background: #c46752;
-      font-size: 12px;
-      letter-spacing: .08em;
+      font-size: .86em;
+      letter-spacing: .04em;
+      vertical-align: 1px;
+    }
+    .mv-caption {
+      position: absolute;
+      z-index: 6;
+      left: 14px;
+      right: 14px;
+      bottom: 54px;
+      margin: 0;
+      color: #fff;
+      text-align: center;
+      font-size: 12.5px;
+      font-weight: 700;
+      line-height: 1.7;
     }
     .patent-seal {
       display: inline-flex;
@@ -1144,34 +1165,69 @@
       text-decoration: underline;
       text-underline-offset: 3px;
     }
-    .plan-list { display: grid; gap: 12px; margin-top: 14px; }
-    .plan-card {
-      border-radius: 18px;
-      padding: 16px 14px 14px;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(120,60,40,.08);
+    .plan-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 10px;
+      margin-top: 22px;
     }
-    .plan-card.is-annual { background: linear-gradient(180deg, #e7f7e4, #fff); }
-    .plan-card.is-month { background: linear-gradient(180deg, #fff4df, #fff); }
-    .plan-card.is-bp { background: linear-gradient(180deg, #fde4dc, #fff); }
+    .plan-card {
+      position: relative;
+      border-radius: 22px;
+      padding: 22px 10px 14px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(180, 90, 40, .18);
+    }
+    .plan-card.is-annual { background: linear-gradient(180deg, #f6a36c, #ef8648); }
+    .plan-card.is-month { background: linear-gradient(180deg, #f3c44d, #e6a51d); }
+    .plan-card.is-bp {
+      grid-column: 1 / -1;
+      background: linear-gradient(180deg, #f09258, #e36d3c);
+    }
     .plan-card h3 {
-      margin: 4px 0 2px;
+      margin: 2px 0 2px;
       font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
       font-size: 18px;
-    }
-    .plan-card .sub { margin: 0; font-size: 12px; color: var(--muted); }
-    .plan-card .yen { margin: 10px 0 0; font-weight: 900; }
-    .plan-card .yen strong { font-size: 28px; }
-    .plan-save {
-      display: inline-block;
-      margin: 0 0 8px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: #e23b3b;
       color: #fff;
-      font-size: 12px;
+    }
+    .plan-card .sub { margin: 0; font-size: 12px; color: rgba(255,255,255,.95); }
+    .plan-card .yen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 12px 0 0;
       font-weight: 800;
-      line-height: 1.45;
+      font-size: 13px;
+    }
+    .plan-card.is-bp .yen { flex-direction: row; gap: 8px; }
+    .plan-card .yen strong { font-size: 22px; }
+    .plan-card .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #fff;
+      color: #e07a32;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .plan-card.is-month .pill { color: #c49216; }
+    .plan-save {
+      position: absolute;
+      top: -16px;
+      left: 8px;
+      margin: 0;
+      padding: 6px 10px;
+      border-radius: 14px;
+      background: #ffe14a;
+      color: #6a4a10;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.35;
+      box-shadow: 0 4px 10px rgba(180, 140, 20, .25);
     }
     .start-list { display: grid; gap: 12px; }
     .start-card {
@@ -1195,7 +1251,14 @@
       font-weight: 800;
       color: var(--muted);
     }
-    .why-block { margin-top: 22px; }
+    .talk-lead {
+      margin: 4px 0 16px;
+      text-align: center;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      line-height: 1.7;
+    }
     .why-block h3 {
       margin: 0 0 12px;
       text-align: center;
@@ -1609,13 +1672,12 @@
         <a class="logo" href="#top">
           <img src="img/logo_top.png" alt="0歳からのおうち英語 BabyLingo!" width="240" height="62" />
         </a>
+        <p class="mv-kicker">
+          <span class="mark">特許取得</span>＼ わが子をバイリンガルに育て上げた親たちが開発／<br />
+          おうち英語プログラム<br />
+          BabyLingo!
+        </p>
       </header>
-      <p class="mv-kicker">
-        <span class="mark">特許取得</span><br />
-        わが子をバイリンガルに育て上げた親たちが開発<br />
-        おうち英語プログラム<br />
-        BabyLingo!
-      </p>
       <div class="mv-stage">
         <div class="video-player" data-video-player>
           <video
@@ -1656,13 +1718,10 @@
           </div>
         </div>
       </div>
+      <p class="mv-caption">BabyLingo!は、実際にわが子をバイリンガルに育て上げた親たちが、「英語が話せない家庭でも再現できる方法」を追求して作ったプログラムです。</p>
       <button type="button" class="mv-scroll" data-mv-scroll data-mv-target="#cta1" aria-label="下へ">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-    </section>
-
-    <section class="mv-about" aria-label="プログラムの説明">
-      <p>BabyLingo!は、実際にわが子をバイリンガルに育て上げた親たちが、「英語が話せない家庭でも再現できる方法」を追求して作ったプログラムです。</p>
     </section>
 
     <!-- ② 即CTA -->
@@ -1697,57 +1756,61 @@
       <div class="sec-lux-inner">
       <p class="sec-ribbon is-mint">まずはココ、あるあるです</p>
       <h2 class="section-ttl">おうち英語に興味はあるけれど…<br />こんなモヤモヤ、ありませんか？</h2>
+      <h3 class="talk-lead">言語科学やバイリンガル育児の成功者たちの答えは共通しています。</h3>
       <ul class="worry-list">
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-01.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble">日本語もまだなのに、<br />英語を始めて大丈夫？</p>
+          <p class="worry-bubble"><b>Q.</b> 日本語もまだなのに、英語を始めて大丈夫？</p>
+        </li>
+        <li>
+          <span class="worry-face">
+            <img src="img/staff.png" alt="サポーター" width="96" height="96" />
+          </span>
+          <p class="worry-bubble"><b>A.</b> 2歳までが最も自然に両立できるゴールデンタイム</p>
         </li>
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-02.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble">英語はもう少し大きくなってから<br />でいいのでは？</p>
+          <p class="worry-bubble"><b>Q.</b> 英語はもう少し大きくなってからでいいのでは？</p>
+        </li>
+        <li>
+          <span class="worry-face">
+            <img src="img/staff.png" alt="サポーター" width="96" height="96" />
+          </span>
+          <p class="worry-bubble"><b>A.</b> 「言語の黄金期である0〜3歳」を逃さないことが最短ルートです。</p>
         </li>
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-03.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble">英語をやらせたいけど、<br />結局何をするのが正解？</p>
+          <p class="worry-bubble"><b>Q.</b> 英語をやらせたいけど、結局何をするのが正解？</p>
+        </li>
+        <li>
+          <span class="worry-face">
+            <img src="img/staff.png" alt="サポーター" width="96" height="96" />
+          </span>
+          <p class="worry-bubble"><b>A.</b> 教室やインターでも高額教材でもなく、「日常の中に英語がある環境（おうち英語）」を作ることです。</p>
         </li>
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-04.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble">親の私が英語苦手なのに、<br />家で教えられる…？</p>
+          <p class="worry-bubble"><b>Q.</b> 親の私が英語苦手なのに、家で教えられる…？</p>
+        </li>
+        <li>
+          <span class="worry-face">
+            <img src="img/staff.png" alt="サポーター" width="96" height="96" />
+          </span>
+          <p class="worry-bubble"><b>A.</b> 親御さんの英語力は一切関係ありません。</p>
         </li>
       </ul>
-      <div class="why-block">
-        <h3>言語科学やバイリンガル育児の成功者たちの答えは共通しています。</h3>
-        <div class="faq-box">
-          <details class="faq" open>
-            <summary>日本語もまだなのに、英語を始めて大丈夫？</summary>
-            <p>2歳までが最も自然に両立できるゴールデンタイム</p>
-          </details>
-          <details class="faq" open>
-            <summary>英語はもう少し大きくなってからでいいのでは？</summary>
-            <p>「言語の黄金期である0〜3歳」を逃さないことが最短ルートです。</p>
-          </details>
-          <details class="faq" open>
-            <summary>英語をやらせたいけど、結局何をするのが正解？</summary>
-            <p>教室やインターでも高額教材でもなく、「日常の中に英語がある環境（おうち英語）」を作ることです。</p>
-          </details>
-          <details class="faq" open>
-            <summary>親の私が英語苦手なのに、家で教えられる…？</summary>
-            <p>親御さんの英語力は一切関係ありません。</p>
-          </details>
-        </div>
-        <p class="panel-note">バイリンガルキッズを育てる方法を詳しく教えます！</p>
-        <p style="text-align:center;margin-top:14px">
-          <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">説明会で詳しく見る<span class="go" aria-hidden="true">→</span></a>
-        </p>
-      </div>
+      <p class="panel-note">バイリンガルキッズを育てる方法を詳しく教えます！</p>
+      <p style="text-align:center;margin-top:14px">
+        <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">説明会で詳しく見る<span class="go" aria-hidden="true">→</span></a>
+      </p>
       </div>
     </section>
 
@@ -1830,17 +1893,17 @@
             <p class="plan-save">単月プランに比べ<br />年額で11,880円お得！</p>
             <h3>年間プラン</h3>
             <p class="sub">12ヶ月毎の更新</p>
-            <p class="yen"><small>毎月払い</small> 月額 <strong>1,980</strong>円（税込）</p>
+            <p class="yen"><span class="pill">毎月払い</span><span>月額 <strong>1,980</strong>円（税込）</span></p>
           </article>
           <article class="plan-card is-month">
             <h3>単月プラン</h3>
             <p class="sub">1ヶ月毎の更新</p>
-            <p class="yen"><small>毎月払い</small> 月額 <strong>2,970</strong>円（税込）</p>
+            <p class="yen"><span class="pill">毎月払い</span><span>月額 <strong>2,970</strong>円（税込）</span></p>
           </article>
           <article class="plan-card is-bp">
             <h3>ベビーパーク生徒様プラン</h3>
             <p class="sub">1ヶ月毎の更新</p>
-            <p class="yen"><small>毎月払い</small> 月額 <strong>1,980</strong>円（税込）</p>
+            <p class="yen"><span class="pill">毎月払い</span><span>月額 <strong>1,980</strong>円（税込）</span></p>
           </article>
         </div>
         <ul class="price-foot">
@@ -1874,19 +1937,6 @@
             <span class="wait">お問い合わせフォーム（喜田先生にリンクを確認）</span>
           </article>
         </div>
-      </div>
-    </section>
-
-    <!-- ⑦ 流れ -->
-    <section class="sec-lux is-soft" id="flow">
-      <div class="sec-lux-inner">
-      <p class="sec-ribbon">かんたん3ステップ</p>
-      <h2 class="section-ttl">流れ</h2>
-      <ol class="flow-steps">
-        <li><span class="flow-num" aria-hidden="true">1</span><div><strong>説明会に申し込む</strong><span>無料ZOOMでOK</span></div></li>
-        <li><span class="flow-num" aria-hidden="true">2</span><div><strong>進め方を知る</strong><span>ご家庭に合うやり方を確認</span></div></li>
-        <li><span class="flow-num" aria-hidden="true">3</span><div><strong>おうち英語を始める</strong><span>毎日の中で続けられる</span></div></li>
-      </ol>
       </div>
     </section>
 
