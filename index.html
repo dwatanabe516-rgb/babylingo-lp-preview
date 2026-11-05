@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>BabyLingo! LP モック（SP）｜BabyPark online構成</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;800&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fdfcf4;
+      --bg-cream: #fcf5e7;
+      --text: #2a2420;
+      --muted: #6a5a52;
+      --coral: #f57f64;
+      --coral-deep: #c46752;
+      --coral-soft: #eaa291;
+      --coral-pale: #f8e4dc;
+      --mint: #3f928f;
+      --mint-deep: #2f7875;
+      --mint-soft: #7eb8b5;
+      --mint-pale: #e8f5f3;
+      --gold: #e4b23c;
+      --gold-deep: #c4922a;
+      --gold-pale: #fff3d0;
+      --sky: #6a9ec9;
+      --sky-pale: #e8f2fa;
+      --line: #e9b2a5;
+      --pad: 20px;
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --meet: https://babylingo-english.jp/meeting;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans JP", sans-serif;
+      color: var(--text);
+      background: #e5e3df;
+      line-height: 1.75;
+      font-size: 15px;
+      font-weight: 500;
+      -webkit-text-size-adjust: 100%;
+    }
+    img { max-width: 100%; display: block; }
+    .phone {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100svh;
+      background: var(--bg);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 12px 40px rgba(0,0,0,.12);
+    }
+    .mock-note {
+      margin: 16px var(--pad) 8px;
+      color: #9a8a82;
+      font-size: 10px;
+      padding: 0;
+      text-align: center;
+      line-height: 1.6;
+      background: transparent;
+    }
+    .mock-note a { color: var(--coral-deep); text-decoration: underline; }
+
+    .site-header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      padding: 14px var(--pad) 10px;
+      background: transparent;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 1px 4px rgba(0,0,0,.45));
+    }
+
+    /* 縦動画MV */
+    .mv-screen {
+      position: relative;
+      height: 100svh;
+      max-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      background: #1a1614;
+      overflow: hidden;
+    }
+    .mv-stage {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 0 64px;
+    }
+    .mv-screen .video-player {
+      width: min(100%, calc((100svh - 120px) * 9 / 16));
+      height: min(100%, calc(100svh - 120px));
+      aspect-ratio: 9 / 16;
+      margin: 0 auto;
+      border-radius: 0;
+      background: #000;
+    }
+    .mv-screen .video-player video {
+      object-fit: cover;
+      background: #000;
+    }
+    .mv-screen::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 96px;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
+      pointer-events: none;
+      z-index: 3;
+    }
+    .mv-scroll {
+      position: absolute;
+      z-index: 6;
+      left: 50%;
+      bottom: calc(12px + var(--safe-b));
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: rgba(252, 245, 231, .94);
+      color: var(--coral-deep);
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(60, 30, 20, .22);
+      animation: mvBob 1.7s ease-in-out infinite;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mv-scroll svg { width: 20px; height: 20px; display: block; }
+    .mv-scroll:active { transform: translateX(-50%) scale(.94); }
+    .mv-scroll.is-hidden,
+    .mv-scroll.is-scrolling {
+      opacity: 0;
+      pointer-events: none;
+      animation: none;
+    }
+    @keyframes mvBob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(5px); }
+    }
+
+    .video-player {
+      position: relative;
+      background: #1c1a18;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .video-player video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      object-fit: cover;
+    }
+    .vbar {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      z-index: 4;
+      background: rgba(70, 70, 70, .92);
+      color: #fff;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .video-player.is-controls-on .vbar,
+    .video-player.is-paused .vbar,
+    .video-player.is-seeking .vbar {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .vbar-progress {
+      position: relative;
+      height: 14px;
+      margin: 0 10px;
+      cursor: pointer;
+      touch-action: none;
+    }
+    .vbar-progress::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 50%;
+      height: 3px;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,.35);
+      border-radius: 2px;
+    }
+    .vbar-progress-fill {
+      position: absolute;
+      left: 0; top: 50%;
+      height: 3px;
+      width: 0%;
+      transform: translateY(-50%);
+      background: #fff;
+      border-radius: 2px;
+      pointer-events: none;
+    }
+    .vbar-progress-thumb {
+      position: absolute;
+      top: 50%; left: 0%;
+      width: 11px; height: 11px;
+      margin-left: -5.5px;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background: #cfcfcf;
+      pointer-events: none;
+    }
+    .vbar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 0 8px 6px;
+      min-height: 34px;
+    }
+    .vbar-left, .vbar-right { display: flex; align-items: center; gap: 4px; }
+    .vbar-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 36px;
+      padding: 0;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      transition: background .12s ease, transform .1s ease;
+    }
+    .vbar-btn:active { background: rgba(255,255,255,.28); transform: scale(.9); }
+    .vbar-btn svg { width: 18px; height: 18px; display: none; pointer-events: none; }
+    .vbar-btn svg.is-on { display: block; }
+    .vbar-time {
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .section { padding: 48px var(--pad); }
+    .section.cream { background: var(--bg-cream); }
+    .caption {
+      margin: 10px 0 0;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      padding: 0 20px;
+      border-radius: 999px;
+      background: var(--coral-deep);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      border: none;
+    }
+    .btn-ghost {
+      background: #fff;
+      border: 1.5px solid var(--coral-soft);
+      color: var(--coral-deep);
+    }
+
+
+
+    /* ===== 全体：CTA級の豪華セクション枠 ===== */
+    .fig-note { display: none; }
+    .sec-lux {
+      padding: 28px 14px 32px;
+      background:
+        repeating-linear-gradient(90deg, #fff6e8 0 10px, #ffefd6 10px 20px);
+    }
+    .sec-lux.is-mint {
+      background:
+        repeating-linear-gradient(90deg, #eef8f6 0 10px, #e3f2ef 10px 20px);
+    }
+    .sec-lux.is-soft {
+      background:
+        repeating-linear-gradient(90deg, #fffaf3 0 10px, #fff3e4 10px 20px);
+    }
+    .sec-lux-inner {
+      position: relative;
+      padding: 28px 16px 24px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,255,255,.75), transparent 35%),
+        linear-gradient(180deg, #fffdfb 0%, #fff8ef 100%);
+      box-shadow: 0 16px 40px rgba(80, 60, 40, .1);
+    }
+    .sec-lux.is-mint .sec-lux-inner {
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,255,255,.75), transparent 35%),
+        linear-gradient(180deg, #f7fcfb 0%, #e8f5f3 100%);
+      box-shadow: 0 16px 40px rgba(42, 122, 118, .12);
+    }
+    .sec-ribbon {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      padding: 9px 22px 10px;
+      min-width: 70%;
+      text-align: center;
+      color: #fff;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      background: linear-gradient(135deg, #f57f64, #c46752);
+      border-radius: 8px;
+      box-shadow: 0 8px 18px rgba(196, 103, 82, .32);
+      z-index: 2;
+      white-space: nowrap;
+    }
+    .sec-ribbon.is-mint {
+      background: linear-gradient(135deg, #5aa8a4, #3f928f);
+      box-shadow: 0 8px 18px rgba(63,146,143,.32);
+    }
+    .sec-ribbon.is-gold {
+      background: linear-gradient(135deg, #e8b84a, #c4922a);
+      box-shadow: 0 8px 18px rgba(196,146,42,.32);
+    }
+    .sec-ribbon.is-gold::before { border-color: #9a7420 transparent transparent transparent; }
+    .sec-ribbon.is-gold::after { border-color: #9a7420 transparent transparent transparent; }
+    .sec-ribbon::before,
+    .sec-ribbon::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      width: 0; height: 0;
+      border-style: solid;
+    }
+    .sec-ribbon::before {
+      left: 0;
+      border-width: 10px 12px 0 0;
+      border-color: #9a4a3a transparent transparent transparent;
+    }
+    .sec-ribbon::after {
+      right: 0;
+      border-width: 10px 0 0 12px;
+      border-color: #9a4a3a transparent transparent transparent;
+    }
+    .sec-ribbon.is-mint::before { border-color: #2f6e6b transparent transparent transparent; }
+    .sec-ribbon.is-mint::after { border-color: #2f6e6b transparent transparent transparent; }
+
+    .section-ttl {
+      position: relative;
+      margin: 12px 0 28px;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 23px;
+      font-weight: 900;
+      line-height: 1.45;
+      color: #3d322e;
+      text-align: center;
+      word-break: keep-all;
+      letter-spacing: .06em;
+      text-shadow:
+        0 0 2px #fff,
+        1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff;
+    }
+    .section-ttl::after {
+      content: "";
+      display: block;
+      width: 88px;
+      height: 12px;
+      margin: 12px auto 0;
+      background: none;
+      border-bottom: 3px solid var(--mint-soft);
+      border-left: 3px solid var(--mint-soft);
+      border-right: 3px solid var(--mint-soft);
+      border-radius: 0 0 10px 10px;
+    }
+    .sec-lux.is-mint .section-ttl { color: var(--mint-deep); }
+    .sec-lux.is-mint .section-ttl::after { border-color: var(--mint-soft); }
+    #features .section-ttl { color: var(--coral-deep); }
+    #features .section-ttl::after { border-color: var(--coral-soft); }
+    #price .section-ttl { color: var(--gold-deep); }
+    #price .section-ttl::after { border-color: var(--gold); }
+    #flow .section-ttl { color: var(--coral-deep); }
+    #flow .section-ttl::after { border-color: var(--coral-soft); }
+    #qa .section-ttl { color: var(--mint-deep); }
+    #qa .section-ttl::after { border-color: var(--mint-soft); }
+
+    /* お悩み */
+    .worry-list { margin: 8px 0 0; padding: 0; list-style: none; }
+    .worry-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .worry-list li:nth-child(even) { flex-direction: row-reverse; }
+    .worry-list li:nth-child(even) .worry-bubble::before {
+      left: auto; right: -11px;
+      border-width: 9px 0 9px 11px;
+      border-color: transparent transparent transparent #4f9d99;
+    }
+    .worry-list li:nth-child(even) .worry-bubble::after {
+      left: auto; right: -7px;
+      border-width: 7px 0 7px 8px;
+      border-color: transparent transparent transparent #fff;
+    }
+    .worry-list li:last-child { margin-bottom: 0; }
+    .worry-face {
+      flex: 0 0 100px;
+      width: 100px;
+      background: transparent;
+      border: none;
+      display: block;
+    }
+    .worry-face img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      filter: drop-shadow(0 10px 16px rgba(42, 122, 118, .2));
+    }
+    .worry-bubble {
+      flex: 1;
+      position: relative;
+      padding: 16px 15px;
+      border-radius: 18px;
+      background: #fff;
+      border: 2.5px solid #4f9d99;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.55;
+      word-break: keep-all;
+      color: #245a57;
+      box-shadow: 0 10px 22px rgba(42, 122, 118, .14);
+    }
+    .worry-bubble::before,
+    .worry-bubble::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-style: solid;
+    }
+    .worry-bubble::before {
+      left: -11px;
+      border-width: 9px 11px 9px 0;
+      border-color: transparent #4f9d99 transparent transparent;
+    }
+    .worry-bubble::after {
+      left: -7px;
+      border-width: 7px 8px 7px 0;
+      border-color: transparent #fff transparent transparent;
+    }
+
+    /* 特長パネル */
+    .panel {
+      margin: 0 0 22px;
+      border-radius: 24px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,.9) inset,
+        0 14px 32px rgba(140, 70, 50, .14);
+      border: 1px solid rgba(245,127,100,.12);
+    }
+    .panel:last-of-type { margin-bottom: 0; }
+    .panel-head {
+      position: relative;
+      padding: 20px 16px 30px;
+      background: linear-gradient(135deg, #f57f64 0%, #d96a55 45%, #c46752 100%);
+      color: #fff;
+      text-align: center;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    }
+    #features .panel:nth-of-type(1) .panel-head {
+      background: linear-gradient(135deg, #f57f64 0%, #c46752 100%);
+    }
+    #features .panel:nth-of-type(2) .panel-head {
+      background: linear-gradient(135deg, #5bb3af 0%, #3f928f 100%);
+    }
+    #features .panel:nth-of-type(3) .panel-head {
+      background: linear-gradient(135deg, #e8b84a 0%, #c4922a 100%);
+    }
+    #features .panel:nth-of-type(2) .panel-points {
+      background: linear-gradient(180deg, #f2faf9, #e5f4f2);
+    }
+    #features .panel:nth-of-type(2) .panel-points li { border-bottom-color: #c5e0dd; }
+    #features .panel:nth-of-type(2) .point-badge {
+      color: var(--mint-deep);
+      border-color: #b5d9d6;
+      box-shadow: 0 4px 12px rgba(63,146,143,.16);
+    }
+    #features .panel:nth-of-type(2) .point-badge small,
+    #features .panel:nth-of-type(2) .point-badge strong,
+    #features .panel:nth-of-type(2) .panel-points span { color: var(--mint-deep); }
+    #features .panel:nth-of-type(3) .panel-points {
+      background: linear-gradient(180deg, #fff8e8, #fff1d0);
+    }
+    #features .panel:nth-of-type(3) .panel-points li { border-bottom-color: #edd9a8; }
+    #features .panel:nth-of-type(3) .point-badge {
+      color: var(--gold-deep);
+      border-color: #e8d09a;
+      box-shadow: 0 4px 12px rgba(196,146,42,.16);
+    }
+    #features .panel:nth-of-type(3) .point-badge small,
+    #features .panel:nth-of-type(3) .point-badge strong,
+    #features .panel:nth-of-type(3) .panel-points span { color: var(--gold-deep); }
+    #features .panel:nth-of-type(2) .grid-fig .cell {
+      border-color: #c5e0dd;
+      color: var(--mint-deep);
+    }
+    #features .panel:nth-of-type(2) .grid-fig .cell .ico {
+      background: linear-gradient(160deg, #f2faf9, #dcefeb);
+      color: var(--mint-deep);
+      box-shadow: inset 0 0 0 2px rgba(63,146,143,.12);
+    }
+    #features .panel:nth-of-type(3) .grid-fig .cell {
+      border-color: #e8d09a;
+      color: #7a5a18;
+    }
+    #features .panel:nth-of-type(3) .grid-fig .cell .ico {
+      background: linear-gradient(160deg, #fff8e8, #ffe9b8);
+      color: var(--gold-deep);
+      box-shadow: inset 0 0 0 2px rgba(196,146,42,.14);
+    }
+    .panel-head::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -1px;
+      height: 18px;
+      background:
+        radial-gradient(circle at 14px 0, transparent 11px, #fff 12px) repeat-x;
+      background-size: 28px 18px;
+      background-position: -14px bottom;
+    }
+    .panel-body { padding: 24px 16px 18px; }
+    .panel-visual { display: none !important; }
+    .panel-lead {
+      margin: 0 0 16px;
+      font-size: 14.5px;
+      line-height: 1.85;
+      text-align: center;
+      color: #4a403c;
+      font-weight: 500;
+    }
+    .panel-lead .hl {
+      background: linear-gradient(transparent 58%, #ffe27a 58%);
+      font-weight: 800;
+      padding: 0 .12em;
+    }
+    .panel-points {
+      margin: 0;
+      padding: 12px;
+      list-style: none;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff7f3, #ffefe8);
+    }
+    .panel-points li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 6px;
+      border-bottom: 1px dashed #f0c8bc;
+    }
+    .panel-points li:last-child { border-bottom: none; }
+    .point-badge {
+      flex: 0 0 56px;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: #fff;
+      color: #e56b58;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(196, 103, 82, .16);
+      border: 2px solid #f5c4b8;
+    }
+    .point-badge small {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      line-height: 1;
+      color: #e56b58;
+      font-family: "Zen Maru Gothic", sans-serif;
+    }
+    .point-badge strong {
+      font-family: Akshar, sans-serif;
+      font-size: 22px;
+      line-height: 1;
+      margin-top: 2px;
+      color: #e56b58;
+    }
+    .panel-points span {
+      flex: 1;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #e56b58;
+      line-height: 1.45;
+      word-break: keep-all;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+    }
+    .grid-fig {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .grid-fig .cell {
+      padding: 18px 10px 16px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1.5px solid #f0d0c4;
+      text-align: center;
+      font-size: 13.5px;
+      font-weight: 800;
+      line-height: 1.4;
+      word-break: keep-all;
+      color: #5a4038;
+      box-shadow: 0 8px 18px rgba(120, 60, 40, .07);
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+    }
+    .grid-fig .cell .ico {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(160deg, #fff6f2, #ffe8df);
+      color: var(--coral-deep);
+      box-shadow: inset 0 0 0 2px rgba(245,127,100,.12);
+    }
+    .grid-fig .cell .ico svg { width: 22px; height: 22px; display: block; }
+
+    /* 料金（CTAオファー箱と同系） */
+    .price-fig { padding: 4px 0 0; }
+    .price-catch {
+      margin: 4px 0 18px;
+      text-align: center;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 17px;
+      font-weight: 900;
+      color: #3d322e;
+      letter-spacing: .04em;
+    }
+    .price-catch::before,
+    .price-catch::after {
+      content: "";
+      display: inline-block;
+      width: 18px; height: 2.5px;
+      margin: 0 10px;
+      vertical-align: middle;
+      background: var(--gold);
+      transform: rotate(-22deg);
+      border-radius: 2px;
+    }
+    .price-catch::after { transform: rotate(22deg); }
+    .price-card {
+      margin: 0 0 8px;
+      padding: 18px 14px 16px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(120, 60, 40, .12);
+    }
+    .price-pill {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto 14px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e8b84a, #c4922a);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(196, 146, 42, .28);
+      text-align: center;
+      border: none;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      letter-spacing: .04em;
+    }
+    .price-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 22px rgba(120, 60, 40, .1);
+      font-size: 14px;
+    }
+    .price-table th,
+    .price-table td {
+      padding: 18px 12px;
+      text-align: center;
+      border-bottom: 1px solid #f0d2c8;
+    }
+    .price-table tr:last-child th,
+    .price-table tr:last-child td { border-bottom: none; }
+    .price-table th {
+      width: 48%;
+      background: linear-gradient(135deg, #5bb3af, #3f928f);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: .04em;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 14px;
+    }
+    .price-table tr:nth-child(2) th {
+      background: linear-gradient(135deg, #e8b84a, #c4922a);
+    }
+    .price-table td {
+      background: #fff;
+      font-weight: 900;
+      color: var(--mint-deep);
+      font-size: 26px;
+      font-family: Akshar, "Zen Maru Gothic", sans-serif;
+    }
+    .price-table tr:nth-child(2) td {
+      color: var(--gold-deep);
+    }
+    .price-table .muted-cell {
+      color: #3d322e;
+      font-size: 24px;
+      font-weight: 900;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+    }
+    .price-foot {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      font-size: 11px;
+      color: #8a7a72;
+      line-height: 1.8;
+    }
+    .audience-label {
+      margin: 22px 0 12px;
+      text-align: center;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+      color: #3d322e;
+      letter-spacing: .04em;
+    }
+    .audience-chips {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .audience-chips .chip {
+      padding: 16px 10px;
+      border-radius: 16px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 13px;
+      line-height: 1.4;
+      word-break: keep-all;
+      background: #fff;
+      border: 2px solid #f0c4b6;
+      color: var(--coral-deep);
+      box-shadow: 0 6px 16px rgba(120, 60, 40, .07);
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+    }
+    .audience-chips .chip:nth-child(1).is-on {
+      background: linear-gradient(135deg, #f57f64, #c46752);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(196, 103, 82, .28);
+    }
+    .audience-chips .chip:nth-child(2).is-on {
+      background: linear-gradient(135deg, #5bb3af, #3f928f);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(63,146,143,.28);
+    }
+    .audience-chips .chip:nth-child(3) {
+      border-color: #e8d09a;
+      color: var(--gold-deep);
+    }
+    .audience-chips .chip:nth-child(4) {
+      border-color: #b5d9d6;
+      color: var(--mint-deep);
+    }
+    .audience-chips .chip.is-on {
+      border-color: transparent;
+      color: #fff;
+    }
+    .audience-chips .chip small {
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      opacity: .92;
+    }
+
+    /* 流れ：カード型ステップ */
+    .flow-steps {
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 14px;
+    }
+    .flow-steps li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 16px 16px 14px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(120, 60, 40, .1);
+      border: 1px solid rgba(245,127,100,.12);
+    }
+    .flow-steps li:not(:last-child)::after { display: none; }
+    .flow-num {
+      flex: 0 0 52px;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f57f64, #c46752);
+      color: #fff;
+      font-family: Akshar, sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 18px rgba(196, 103, 82, .32);
+    }
+    .flow-steps li:nth-child(2) .flow-num {
+      background: linear-gradient(135deg, #5bb3af, #3f928f);
+      box-shadow: 0 8px 18px rgba(63,146,143,.32);
+    }
+    .flow-steps li:nth-child(3) .flow-num {
+      background: linear-gradient(135deg, #e8b84a, #c4922a);
+      box-shadow: 0 8px 18px rgba(196,146,42,.32);
+    }
+    .flow-steps strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 800;
+      color: #3d322e;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      letter-spacing: .03em;
+    }
+    .flow-steps span {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #8a7a72;
+      line-height: 1.5;
+    }
+
+    /* FAQ 豪華カード */
+    .faq-box {
+      margin-top: 8px;
+      border-radius: 18px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(120, 60, 40, .1);
+      border: 1px solid rgba(245,127,100,.1);
+    }
+    details.faq {
+      border-top: 1px solid #f3d8ce;
+      background: #fff;
+      margin: 0;
+      padding: 0 16px;
+    }
+    details.faq:first-child { border-top: none; }
+    details.faq:last-of-type { border-bottom: none; }
+    details.faq summary {
+      position: relative;
+      padding: 16px 28px 16px 0;
+      font-weight: 800;
+      cursor: pointer;
+      list-style: none;
+      color: #3d322e;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 14px;
+    }
+    details.faq summary::-webkit-details-marker { display: none; }
+    details.faq summary::after {
+      content: "+";
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: Akshar, sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--mint);
+      line-height: 1;
+    }
+    details.faq[open] summary::after { content: "−"; }
+    details.faq p {
+      margin: 0 0 16px;
+      font-size: 13.5px;
+      color: #6a5a52;
+      line-height: 1.75;
+    }
+
+    /* 信頼バナー */
+    .trust-lux {
+      padding: 8px 14px 0;
+      background:
+        repeating-linear-gradient(90deg, #fff6e8 0 10px, #ffefd6 10px 20px);
+    }
+    .trust-lux-inner {
+      margin: 0;
+      padding: 22px 16px 18px;
+      border-radius: 20px 20px 0 0;
+      text-align: center;
+      background: linear-gradient(135deg, #fff 0%, #eef7f6 55%, #fff3eb 100%);
+      box-shadow: 0 12px 28px rgba(80, 80, 60, .1);
+      border: 1.5px solid rgba(63,146,143,.2);
+      border-bottom: none;
+    }
+    .trust-lux-inner .trust-line {
+      margin: 0 0 6px;
+      padding: 0;
+      font-family: Akshar, "Zen Maru Gothic", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--mint-deep);
+    }
+    .trust-lux-inner > p {
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      font-weight: 700;
+      color: #5a4038;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+    }
+
+    /* 最終一言 → 説明会CTA */
+    .closing {
+      padding: 0 14px 28px;
+      background:
+        repeating-linear-gradient(90deg, #fff6e8 0 10px, #ffefd6 10px 20px);
+    }
+    .closing-inner {
+      margin: 0;
+      padding: 8px 18px 26px;
+      border-radius: 0 0 22px 22px;
+      background: linear-gradient(180deg, #fff8ef 0%, #fff 40%, #fffdf9 100%);
+      box-shadow: 0 16px 40px rgba(80, 60, 40, .1);
+      border: 1.5px solid rgba(63,146,143,.18);
+      border-top: none;
+      text-align: center;
+    }
+    .closing-quote {
+      margin: 18px 0 0;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 15.5px;
+      font-weight: 700;
+      line-height: 1.95;
+      color: #3d322e;
+      letter-spacing: .04em;
+      word-break: keep-all;
+    }
+    .closing-quote .em {
+      display: block;
+      margin-top: 18px;
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--coral-deep);
+      line-height: 1.8;
+    }
+    .closing-quote .em strong {
+      background: linear-gradient(transparent 58%, #ffe27a 58%);
+      padding: 0 .08em;
+    }
+    .closing-assure {
+      margin: 28px 12px 0;
+      padding: 18px 16px 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #eef7f6, #e3f2ef);
+      border: 1.5px solid rgba(63,146,143,.22);
+      box-shadow: 0 8px 20px rgba(63,146,143,.1);
+    }
+    .closing-assure .kicker {
+      margin: 0 0 8px;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--mint-deep);
+      letter-spacing: .06em;
+    }
+    .closing-assure .kicker::before,
+    .closing-assure .kicker::after {
+      content: "";
+      display: inline-block;
+      width: 14px;
+      height: 2px;
+      margin: 0 8px;
+      vertical-align: middle;
+      background: var(--mint-soft);
+      border-radius: 2px;
+    }
+    .closing-assure p {
+      margin: 0;
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.75;
+      color: #3a5552;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      word-break: keep-all;
+    }
+    .closing + .cta-lux {
+      padding-top: 8px;
+    }
+    .cta-lux.is-final .cta-offer { display: none; }
+    .cta-lux.is-final .cta-lux-inner {
+      padding-top: 32px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(245,127,100,.12), transparent 55%),
+        linear-gradient(180deg, #fff 0%, #fff6ee 100%);
+    }
+    .cta-lux.is-final .cta-lead {
+      margin-top: 8px;
+      font-size: 15px;
+    }
+
+
+
+    /* 特長：要点だけ（詳細は説明会） */
+    .panel-note {
+      margin: 14px 0 0;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+    }
+    .panel-body .panel-points,
+    .panel-body .grid-fig { display: none !important; }
+    .panel-body { padding: 22px 18px 20px; }
+    .panel-lead { margin: 0; }
+
+    /* バイリンガル動画（先頭MVとは別） */
+    .movie-embed {
+      margin-top: 6px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 12px 28px rgba(60, 50, 40, .18);
+      aspect-ratio: 16 / 9;
+      position: relative;
+    }
+    .movie-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    .movie-cap {
+      margin: 14px 0 0;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #5a4a42;
+      line-height: 1.7;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      word-break: keep-all;
+    }
+    .movie-more {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--mint-deep);
+      text-decoration: underline;
+    }
+
+    /* ===== 豪華CTA（参考online型／BLカラー・他社比較なし） ===== */
+    .cta-lux {
+      padding: 28px 14px 32px;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #fff6e8 0 10px,
+          #ffefd6 10px 20px
+        );
+    }
+    .cta-lux-inner {
+      position: relative;
+      padding: 28px 14px 22px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,.55), transparent 28%),
+        radial-gradient(circle at 88% 80%, rgba(245,127,100,.12), transparent 30%),
+        linear-gradient(180deg, #fff8eb 0%, #ffe9c8 100%);
+      box-shadow: 0 16px 40px rgba(140, 70, 40, .12);
+      overflow: visible;
+    }
+    .cta-ribbon {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      padding: 10px 28px 11px;
+      min-width: 78%;
+      text-align: center;
+      color: #fff;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      background: linear-gradient(135deg, #f57f64, #c46752);
+      border-radius: 8px;
+      box-shadow: 0 8px 18px rgba(196, 103, 82, .35);
+      z-index: 2;
+    }
+    .cta-ribbon::before,
+    .cta-ribbon::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      width: 0; height: 0;
+      border-style: solid;
+    }
+    .cta-ribbon::before {
+      left: 0;
+      border-width: 10px 12px 0 0;
+      border-color: #9a4a3a transparent transparent transparent;
+    }
+    .cta-ribbon::after {
+      right: 0;
+      border-width: 10px 0 0 12px;
+      border-color: #9a4a3a transparent transparent transparent;
+    }
+    .cta-offer {
+      margin: 18px 0 16px;
+      padding: 22px 16px 18px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(120, 60, 40, .1);
+      text-align: center;
+    }
+    .cta-was {
+      margin: 0 0 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #6a5a52;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+    }
+    .cta-was strong {
+      position: relative;
+      display: inline-block;
+      font-size: 18px;
+      color: #8a7a72;
+      padding: 0 4px;
+    }
+    .cta-was strong::after {
+      content: "";
+      position: absolute;
+      left: -2%;
+      right: -2%;
+      top: 48%;
+      height: 3px;
+      background: #f57f64;
+      transform: rotate(-8deg);
+      border-radius: 2px;
+    }
+    .cta-zero-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 4px 0 8px;
+    }
+    .cta-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7ec8a3, #3f928f);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(63,146,143,.3);
+      flex: 0 0 auto;
+    }
+    .cta-zero {
+      position: relative;
+      margin: 0;
+      color: #f57f64;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: .02em;
+    }
+    .cta-zero .num {
+      font-family: Akshar, "Zen Maru Gothic", sans-serif;
+      font-size: 72px;
+      letter-spacing: -.02em;
+      text-shadow: 0 2px 0 #fff, 0 8px 18px rgba(245,127,100,.25);
+    }
+    .cta-zero .unit {
+      font-size: 28px;
+      margin-left: 2px;
+      vertical-align: 18px;
+    }
+    .cta-zero .badge {
+      position: absolute;
+      top: -6px;
+      right: -38px;
+      padding: 6px 8px;
+      border-radius: 50%;
+      background: #f57f64;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1.2;
+      box-shadow: 0 4px 10px rgba(245,127,100,.35);
+      transform: rotate(8deg);
+    }
+    .cta-zero .spark {
+      position: absolute;
+      left: -18px;
+      top: 8px;
+      width: 14px;
+      height: 14px;
+      background:
+        linear-gradient(#f5c84c, #f5c84c) center/2px 100% no-repeat,
+        linear-gradient(#f5c84c, #f5c84c) center/100% 2px no-repeat;
+      transform: rotate(25deg);
+      opacity: .95;
+    }
+    .cta-month {
+      margin: 0 0 14px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #5a4a42;
+    }
+    .cta-month em {
+      font-style: normal;
+      font-family: Akshar, "Zen Maru Gothic", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--mint-deep);
+      margin: 0 2px;
+    }
+    .cta-dots {
+      border: none;
+      border-top: 2px dotted #f0c8a8;
+      margin: 0 8px 16px;
+    }
+    .cta-brand-pill {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #5bb3af, #3f928f);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      font-family: Akshar, "Zen Maru Gothic", sans-serif;
+    }
+    .cta-offer-ttl {
+      margin: 0 0 8px;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      color: #f57f64;
+      letter-spacing: .04em;
+      text-shadow:
+        0 0 2px #fff,
+        1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff,
+        0 3px 0 rgba(245,127,100,.18);
+      word-break: keep-all;
+    }
+    .cta-offer-sub {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 700;
+      color: #6a5a52;
+      line-height: 1.6;
+    }
+    .cta-lead {
+      margin: 0 0 14px;
+      text-align: center;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #5a4038;
+      letter-spacing: .02em;
+    }
+    .cta-lead::before,
+    .cta-lead::after {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 2px;
+      margin: 0 10px;
+      vertical-align: middle;
+      background: #c46752;
+      transform: rotate(-22deg);
+      border-radius: 2px;
+    }
+    .cta-lead::after { transform: rotate(22deg); }
+    .cta-hint {
+      position: relative;
+      width: fit-content;
+      max-width: 92%;
+      margin: 0 auto 12px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #fff;
+      border: 2px solid #f57f64;
+      color: #c46752;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 6px 16px rgba(196, 103, 82, .12);
+    }
+    .cta-hint::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -9px;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 9px 8px 0 8px;
+      border-color: #f57f64 transparent transparent transparent;
+    }
+    .cta-hint::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -6px;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 7px 6px 0 6px;
+      border-color: #fff transparent transparent transparent;
+      z-index: 1;
+    }
+    .cta-lux .btn {
+      position: relative;
+      gap: 10px;
+      min-height: 58px;
+      font-size: 16px;
+      background: linear-gradient(135deg, #f57f64 0%, #c46752 100%);
+      box-shadow:
+        0 4px 0 #9a4a3a,
+        0 14px 28px rgba(196, 103, 82, .38);
+    }
+    .cta-lux .btn .go {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.22);
+      font-size: 16px;
+      line-height: 1;
+    }
+    .cta-lux.is-compact {
+      padding: 20px 14px 24px;
+      background:
+        repeating-linear-gradient(90deg, #eef8f6 0 10px, #e3f2ef 10px 20px);
+    }
+    .cta-lux.is-compact .cta-lux-inner {
+      padding: 22px 14px 18px;
+      background: linear-gradient(180deg, #fff 0%, #eef7f6 100%);
+    }
+    .cta-lux.is-compact .cta-ribbon {
+      background: linear-gradient(135deg, #5bb3af, #3f928f);
+      box-shadow: 0 8px 18px rgba(63,146,143,.32);
+    }
+    .cta-lux.is-compact .cta-ribbon::before { border-color: #2f6e6b transparent transparent transparent; }
+    .cta-lux.is-compact .cta-ribbon::after { border-color: #2f6e6b transparent transparent transparent; }
+    .cta-lux.is-compact .cta-hint {
+      border-color: var(--mint);
+      color: var(--mint-deep);
+    }
+    .cta-lux.is-compact .cta-hint::after { border-color: var(--mint) transparent transparent transparent; }
+    .cta-lux.is-compact .btn {
+      background: linear-gradient(135deg, #5bb3af, #3f928f);
+      box-shadow: 0 4px 0 #2f6e6b, 0 14px 28px rgba(63,146,143,.35);
+    }
+    .cta-lux.is-compact .cta-offer { display: none; }
+    .cta-lux.is-compact .cta-ribbon { font-size: 14px; padding: 9px 22px; }
+
+    .cta-block {
+      padding: 36px var(--pad);
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(245,127,100,.14), transparent 62%),
+        var(--bg-cream);
+    }
+    .cta-note {
+      margin: 0 0 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--coral-deep);
+      letter-spacing: .03em;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+    }
+    .btn {
+      box-shadow: 0 12px 28px rgba(196, 103, 82, .3);
+      transition: transform .15s ease, box-shadow .15s ease;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      letter-spacing: .04em;
+      font-size: 16px;
+      min-height: 56px;
+    }
+    .btn:active {
+      transform: scale(.98);
+      box-shadow: 0 4px 12px rgba(196, 103, 82, .2);
+    }
+    .btn-ghost {
+      box-shadow: 0 8px 20px rgba(120, 60, 40, .08);
+      background: #fff;
+      border: 1.5px solid var(--coral-soft);
+      color: var(--coral-deep);
+    }
+
+    footer {
+      padding: 24px var(--pad) 40px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div id="top"></div>
+  <div class="phone">
+
+    <!-- ① 縦動画MVのみ（なれるんだ／なぜ0歳などはこの1本で説明） -->
+    <section class="mv-screen" id="movie" aria-label="縦動画">
+      <header class="site-header">
+        <a class="logo" href="#top">
+          <img src="img/logo_top.png" alt="0歳からのおうち英語 BabyLingo!" width="240" height="62" />
+        </a>
+      </header>
+      <div class="mv-stage">
+        <div class="video-player" data-video-player>
+          <video muted autoplay loop playsinline webkit-playsinline preload="auto" aria-label="縦動画（実績・なぜ0歳など）">
+            <source src="img/result.mp4" type="video/mp4" />
+          </video>
+          <div class="vbar" data-vbar>
+            <div class="vbar-progress" data-vbar-seek aria-label="再生位置">
+              <div class="vbar-progress-fill" data-vbar-fill></div>
+              <div class="vbar-progress-thumb" data-vbar-thumb></div>
+            </div>
+            <div class="vbar-row">
+              <div class="vbar-left">
+                <button type="button" class="vbar-btn" data-vbar-play aria-label="一時停止">
+                  <svg class="is-on" data-icon-pause viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                  <svg data-icon-play viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <button type="button" class="vbar-btn" data-vbar-mute aria-label="ミュート解除">
+                  <svg class="is-on" data-icon-muted viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+                  <svg data-icon-unmuted viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+                </button>
+              </div>
+              <div class="vbar-right">
+                <span class="vbar-time" data-vbar-time>00:00:00 / 00:00:00</span>
+                <button type="button" class="vbar-btn" data-vbar-fs aria-label="全画面">
+                  <svg class="is-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="mv-scroll" data-mv-scroll data-mv-target="#cta1" aria-label="下へ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </section>
+
+    <!-- ② 即CTA -->
+    <section class="cta-lux" id="cta1">
+      <div class="cta-lux-inner">
+        <p class="cta-ribbon">無料ZOOM説明会 受付中！</p>
+        <div class="cta-offer">
+          <p class="cta-was">初期費用・入会金</p>
+          <div class="cta-zero-wrap">
+            <span class="cta-arrow" aria-hidden="true">↓</span>
+            <p class="cta-zero">
+              <span class="spark" aria-hidden="true"></span>
+              <span class="num">0</span><span class="unit">円</span>
+              <span class="badge">今すぐ</span>
+            </p>
+          </div>
+          <p class="cta-month">月額 <em>¥1,980〜</em>（税込）</p>
+          <hr class="cta-dots" />
+          <p class="cta-brand-pill">BabyLingo!</p>
+          <h3 class="cta-offer-ttl">「無料ZOOM説明会」</h3>
+          <p class="cta-offer-sub">進め方だけ、まずは聞いてみてください</p>
+        </div>
+        <p class="cta-lead">おうち英語を、お得に体験できます</p>
+        <p class="cta-hint">数項目で申込み完了！</p>
+        <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">無料ZOOM説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- ③ お悩み図 -->
+    <section class="sec-lux is-mint" id="worries">
+      <div class="sec-lux-inner">
+      <p class="sec-ribbon is-mint">まずはココ、あるあるです</p>
+      <h2 class="section-ttl">こんなお悩みを<br />お持ちの方はいませんか？</h2>
+      <ul class="worry-list">
+        <li>
+          <span class="worry-face" aria-hidden="true">
+            <img src="img/char-worry-01.png" alt="" width="96" height="96" />
+          </span>
+          <p class="worry-bubble">英語が話せないのに、<br />語りかけできる気がしない…</p>
+        </li>
+        <li>
+          <span class="worry-face" aria-hidden="true">
+            <img src="img/char-worry-02.png" alt="" width="96" height="96" />
+          </span>
+          <p class="worry-bubble">教材を買っても、<br />続かない…</p>
+        </li>
+        <li>
+          <span class="worry-face" aria-hidden="true">
+            <img src="img/char-worry-03.png" alt="" width="96" height="96" />
+          </span>
+          <p class="worry-bubble">英語を「勉強」に<br />したくない…</p>
+        </li>
+        <li>
+          <span class="worry-face" aria-hidden="true">
+            <img src="img/char-worry-04.png" alt="" width="96" height="96" />
+          </span>
+          <p class="worry-bubble">かけ流しだけで<br />大丈夫なの？</p>
+        </li>
+      </ul>
+      </div>
+    </section>
+
+    <!-- ④ 特長パネル（要点のみ／詳細は説明会） -->
+    <section class="sec-lux is-soft" id="features">
+      <div class="sec-lux-inner">
+      <p class="sec-ribbon">BabyLingo!だからできること</p>
+      <h2 class="section-ttl">BabyLingo!の特長</h2>
+
+      <article class="panel">
+        <div class="panel-head">01 語りかけが中心</div>
+        <div class="panel-body">
+          <p class="panel-lead">お母さまが英語を話せなくても、<br /><span class="hl">正しい語りかけができる</span></p>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">02 連動型コンテンツ</div>
+        <div class="panel-body">
+          <p class="panel-lead">同じフレーズに、<br /><span class="hl">何度も出会う設計</span></p>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">03 続けられるサポート</div>
+        <div class="panel-body">
+          <p class="panel-lead">「これで合ってる？」を<br /><span class="hl">ひとりで抱えない</span></p>
+        </div>
+      </article>
+      <p class="panel-note">くわしい進め方は、説明会でお伝えします</p>
+      </div>
+    </section>
+
+    <!-- ④′ バイリンガルのイメージ動画（先頭MVとは別） -->
+    <section class="sec-lux is-mint" id="bilingual">
+      <div class="sec-lux-inner">
+        <p class="sec-ribbon is-mint">こんなバイリンガルに</p>
+        <h2 class="section-ttl">バイリンガルって、<br />こんな感じ</h2>
+        <div class="movie-embed">
+          <iframe
+            src="https://www.youtube.com/embed/ygV-baL8z_k?rel=0"
+            title="BabyLingo! バイリンガル紹介動画"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+        <p class="movie-cap">
+          日本で育ちながら、英語を自然に使いこなす姿。<br />
+          「こんな感じなんだ」を、まず見てみてください。
+        </p>
+        <p style="text-align:center;margin:0">
+          <a class="movie-more" href="https://babylingo-english.jp/movie/" target="_blank" rel="noopener">ほかの動画も見る</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ⑤ CTA再掲 -->
+    <section class="cta-lux is-compact" id="cta2">
+      <div class="cta-lux-inner">
+        <p class="cta-ribbon">まずは話を聞いてみる</p>
+        <p class="cta-lead" style="margin-top:18px">くわしくは、説明会で</p>
+        <p class="cta-hint">数項目で申込み完了！</p>
+        <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">無料ZOOM説明会を見てみる<span class="go" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- ⑥ 料金・対象 -->
+    <section class="sec-lux" id="price">
+      <div class="sec-lux-inner">
+      <p class="sec-ribbon is-gold">わかりやすい料金</p>
+      <h2 class="section-ttl">料金・対象</h2>
+      <div class="price-fig">
+        <p class="price-catch">はじめるハードルを低く</p>
+        <div class="price-card">
+        <p class="price-pill">BabyLingo!の料金について</p>
+        <table class="price-table">
+          <tr>
+            <th>月額</th>
+            <td>¥1,980〜</td>
+          </tr>
+          <tr>
+            <th>初期費用</th>
+            <td class="muted-cell">0円</td>
+          </tr>
+        </table>
+        <ul class="price-foot">
+          <li>※ 税込・プランによる／自動更新</li>
+          <li>※ 詳細は説明会または料金ページで</li>
+        </ul>
+        </div>
+        <p class="audience-label">こんな方におすすめ</p>
+        <div class="audience-chips">
+          <div class="chip is-on">BabyPark会員<small>対象</small></div>
+          <div class="chip is-on">0〜7か月<small>特におすすめ</small></div>
+          <div class="chip">おうち英語<small>毎日の中で</small></div>
+          <div class="chip">語りかけ<small>仕組みがある</small></div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- ⑦ 流れ -->
+    <section class="sec-lux is-soft" id="flow">
+      <div class="sec-lux-inner">
+      <p class="sec-ribbon">かんたん3ステップ</p>
+      <h2 class="section-ttl">流れ</h2>
+      <ol class="flow-steps">
+        <li><span class="flow-num" aria-hidden="true">1</span><div><strong>説明会に申し込む</strong><span>無料ZOOMでOK</span></div></li>
+        <li><span class="flow-num" aria-hidden="true">2</span><div><strong>進め方を知る</strong><span>ご家庭に合うやり方を確認</span></div></li>
+        <li><span class="flow-num" aria-hidden="true">3</span><div><strong>おうち英語を始める</strong><span>毎日の中で続けられる</span></div></li>
+      </ol>
+      </div>
+    </section>
+
+    <!-- ⑧ FAQ：短答 -->
+    <section class="sec-lux is-mint" id="qa">
+      <div class="sec-lux-inner">
+      <p class="sec-ribbon is-mint">気になること、先に解消</p>
+      <h2 class="section-ttl">よくあるご質問</h2>
+      <div class="faq-box">
+      <details class="faq">
+        <summary>お母さまが英語をしゃべれなくても大丈夫？</summary>
+        <p>大丈夫です。語りかけの仕組みがあります。</p>
+      </details>
+      <details class="faq">
+        <summary>日本語と英語で混乱しませんか？</summary>
+        <p>混乱しません。</p>
+      </details>
+      <details class="faq">
+        <summary>かけ流しだけで話せますか？</summary>
+        <p>それだけでは話せません。語りかけが必要です。</p>
+      </details>
+      <details class="faq">
+        <summary>BabyParkに通いながらでも？</summary>
+        <p>大丈夫です。相性がいいです。</p>
+      </details>
+      </div>
+      </div>
+    </section>
+
+    <!-- ⑨ 信頼＋最終CTA -->
+    <section class="trust-lux">
+      <div class="trust-lux-inner">
+        <p class="trust-line">BABYPARK × BABYLINGO!</p>
+        <p>あのベビーパークが、本気でつくりました。</p>
+      </div>
+    </section>
+
+    <section class="closing" id="closing" aria-label="クロージングメッセージ">
+      <div class="closing-inner">
+        <p class="closing-quote">
+          今日、その小さな手の中に握られているのは、<br />
+          お母様の指かもしれません。<br />
+          でも、その手がいつか、世界中の人々と握手を交わし、<br />
+          自分の夢を掴む未来のために。
+          <span class="em">
+            「0歳からのおうち英語」は、<br />
+            親が子に贈ることのできる、<br />
+            <strong>最高のプレゼント</strong>の一つだと、<br />
+            私たちは確信しています。
+          </span>
+        </p>
+        <div class="closing-assure">
+          <p class="kicker">まずは説明会から</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-lux is-final" id="cta3">
+      <div class="cta-lux-inner">
+        <p class="cta-ribbon">無料ZOOM説明会 受付中！</p>
+        <p class="cta-lead">説明会で、進め方の全体像がつかめます</p>
+        <p class="cta-hint">数項目で申込み完了！</p>
+        <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">無料ZOOM説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <div class="mock-note">
+      提案用モック（最終イラストはデザイナー想定）・<a href="simple-mock.html">Web版</a>
+    </div>
+    <footer>スマホ版モック — 本番ではありません</footer>
+  </div>
+
+  <script>
+    (function () {
+      var hint = document.querySelector("[data-mv-scroll]");
+      if (!hint) return;
+      var scrolling = false;
+      function easeInOutQuint(t) {
+        return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
+      }
+      function smoothScrollTo(targetY, duration) {
+        var startY = window.scrollY || document.documentElement.scrollTop || 0;
+        var diff = targetY - startY;
+        if (Math.abs(diff) < 2) return Promise.resolve();
+        var start = performance.now();
+        scrolling = true;
+        return new Promise(function (resolve) {
+          function tick(now) {
+            var t = Math.min(1, (now - start) / duration);
+            window.scrollTo(0, startY + diff * easeInOutQuint(t));
+            if (t < 1) requestAnimationFrame(tick);
+            else { scrolling = false; resolve(); }
+          }
+          requestAnimationFrame(tick);
+        });
+      }
+      function sync() {
+        if (scrolling) return;
+        var y = window.scrollY || document.documentElement.scrollTop || 0;
+        hint.classList.toggle("is-hidden", y > 28);
+      }
+      hint.addEventListener("click", function () {
+        var sel = hint.getAttribute("data-mv-target") || "#cta1";
+        var el = document.querySelector(sel);
+        if (!el) return;
+        hint.classList.add("is-scrolling");
+        var top = el.getBoundingClientRect().top + (window.scrollY || 0) - 8;
+        smoothScrollTo(top, 900).then(function () {
+          hint.classList.remove("is-scrolling");
+          hint.classList.add("is-hidden");
+        });
+      });
+      window.addEventListener("scroll", sync, { passive: true });
+      sync();
+    })();
+
+    (function () {
+      function isFs(el) {
+        return document.fullscreenElement === el || document.webkitFullscreenElement === el;
+      }
+      function enterFs(wrap, video) {
+        if (wrap.requestFullscreen) return wrap.requestFullscreen();
+        if (wrap.webkitRequestFullscreen) return wrap.webkitRequestFullscreen();
+        if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+      }
+      function exitFs() {
+        if (document.exitFullscreen) return document.exitFullscreen();
+        if (document.webkitExitFullscreen) return document.webkitExitFullscreen();
+      }
+      function fmt(t) {
+        if (!isFinite(t) || t < 0) t = 0;
+        var s = Math.floor(t % 60), m = Math.floor((t / 60) % 60), h = Math.floor(t / 3600);
+        function z(n) { return (n < 10 ? "0" : "") + n; }
+        return z(h) + ":" + z(m) + ":" + z(s);
+      }
+      document.querySelectorAll("[data-video-player]").forEach(function (wrap) {
+        var video = wrap.querySelector("video");
+        var bar = wrap.querySelector("[data-vbar]");
+        if (!video || !bar) return;
+        var playBtn = bar.querySelector("[data-vbar-play]");
+        var muteBtn = bar.querySelector("[data-vbar-mute]");
+        var fsBtn = bar.querySelector("[data-vbar-fs]");
+        var seek = bar.querySelector("[data-vbar-seek]");
+        var fill = bar.querySelector("[data-vbar-fill]");
+        var thumb = bar.querySelector("[data-vbar-thumb]");
+        var timeEl = bar.querySelector("[data-vbar-time]");
+        var iconPlay = playBtn && playBtn.querySelector("[data-icon-play]");
+        var iconPause = playBtn && playBtn.querySelector("[data-icon-pause]");
+        var iconMuted = muteBtn && muteBtn.querySelector("[data-icon-muted]");
+        var iconUnmuted = muteBtn && muteBtn.querySelector("[data-icon-unmuted]");
+        var seeking = false, hideTimer = null;
+        var autoplay = wrap.closest(".mv-screen") != null;
+        var lastTime = 0;
+
+        function showControls(sticky) {
+          wrap.classList.add("is-controls-on");
+          if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+          if (!sticky && !video.paused && !seeking) {
+            hideTimer = setTimeout(function () {
+              wrap.classList.remove("is-controls-on");
+              hideTimer = null;
+            }, 2200);
+          }
+        }
+        function syncPlay() {
+          var paused = video.paused;
+          wrap.classList.toggle("is-paused", paused);
+          if (iconPlay) iconPlay.classList.toggle("is-on", paused);
+          if (iconPause) iconPause.classList.toggle("is-on", !paused);
+          if (playBtn) playBtn.setAttribute("aria-label", paused ? "再生" : "一時停止");
+          if (paused) showControls(true); else showControls(false);
+        }
+        function syncMute() {
+          var muted = video.muted || video.volume === 0;
+          if (iconMuted) iconMuted.classList.toggle("is-on", muted);
+          if (iconUnmuted) iconUnmuted.classList.toggle("is-on", !muted);
+          if (muteBtn) muteBtn.setAttribute("aria-label", muted ? "ミュート解除" : "ミュート");
+        }
+        function syncProgress() {
+          if (!seeking && isFinite(video.currentTime)) lastTime = video.currentTime;
+          var d = video.duration || 0;
+          var c = seeking ? seek._ratio * d : (video.currentTime || 0);
+          var r = d ? (c / d) * 100 : 0;
+          if (fill) fill.style.width = r + "%";
+          if (thumb) thumb.style.left = r + "%";
+          if (timeEl) timeEl.textContent = fmt(c) + " / " + fmt(d);
+        }
+        function ensurePlay() {
+          if (!video.paused && !video.ended) return;
+          var t = isFinite(video.currentTime) ? video.currentTime : lastTime;
+          var p = video.play();
+          if (p && typeof p.then === "function") {
+            p.then(function () {
+              if (isFinite(t) && Math.abs(video.currentTime - t) > 0.35) {
+                try { video.currentTime = t; } catch (err) {}
+              }
+            }).catch(function () {});
+          }
+        }
+        function ratioFromEvent(e) {
+          var rect = seek.getBoundingClientRect();
+          if (!rect.width) return 0;
+          var x = e.clientX - rect.left;
+          return Math.max(0, Math.min(1, x / rect.width));
+        }
+        function applySeek(ratio) {
+          if (!isFinite(video.duration) || video.duration <= 0) return;
+          seek._ratio = ratio;
+          try { video.currentTime = ratio * video.duration; } catch (err) {}
+          lastTime = video.currentTime;
+          syncProgress();
+        }
+
+        video.muted = true;
+        if (autoplay) ensurePlay();
+        syncPlay();
+        syncMute();
+        syncProgress();
+
+        video.addEventListener("play", syncPlay);
+        video.addEventListener("pause", syncPlay);
+        video.addEventListener("timeupdate", syncProgress);
+        video.addEventListener("loadedmetadata", syncProgress);
+        video.addEventListener("durationchange", syncProgress);
+        video.addEventListener("volumechange", syncMute);
+
+        if (bar) {
+          bar.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+          bar.addEventListener("click", function (e) { e.stopPropagation(); });
+        }
+        if (playBtn) playBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (video.paused) ensurePlay(); else video.pause();
+        });
+        if (muteBtn) muteBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var t = isFinite(video.currentTime) ? video.currentTime : lastTime;
+          video.muted = !video.muted;
+          try {
+            if (Math.abs(video.currentTime - t) > 0.35) video.currentTime = t;
+          } catch (err) {}
+          if (!video.muted && video.paused) ensurePlay();
+          syncMute();
+        });
+        if (fsBtn) fsBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (isFs(wrap)) exitFs(); else enterFs(wrap, video);
+        });
+        if (seek) {
+          seek.addEventListener("pointerdown", function (e) {
+            if (e.button != null && e.button !== 0) return;
+            e.preventDefault();
+            e.stopPropagation();
+            seeking = true;
+            wrap.classList.add("is-seeking");
+            try { seek.setPointerCapture(e.pointerId); } catch (err) {}
+            applySeek(ratioFromEvent(e));
+            showControls(true);
+          });
+          seek.addEventListener("pointermove", function (e) {
+            if (!seeking) return;
+            e.preventDefault();
+            applySeek(ratioFromEvent(e));
+          });
+          seek.addEventListener("pointerup", function (e) {
+            e.stopPropagation();
+            seeking = false;
+            wrap.classList.remove("is-seeking");
+            showControls(false);
+          });
+          seek.addEventListener("pointercancel", function () {
+            seeking = false;
+            wrap.classList.remove("is-seeking");
+            showControls(false);
+          });
+        }
+        wrap.addEventListener("pointermove", function () { showControls(false); });
+        wrap.addEventListener("pointerdown", function (e) {
+          if (bar && bar.contains(e.target)) return;
+          showControls(false);
+        });
+        wrap.addEventListener("pointerleave", function () {
+          if (seeking || video.paused) return;
+          wrap.classList.remove("is-controls-on");
+          if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+        });
+        if (autoplay && "IntersectionObserver" in window) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                if (video.paused) ensurePlay();
+              } else if (!isFs(wrap) && !video.paused) {
+                video.pause();
+              }
+            });
+          }, { threshold: 0.2 });
+          io.observe(wrap);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
