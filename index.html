@@ -259,6 +259,16 @@
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
+    .vframe {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      top: 50%;
+      width: min(100%, calc(100svh * 16 / 9));
+      aspect-ratio: 16 / 9;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
     .vmute {
       position: absolute;
       z-index: 5;
@@ -276,6 +286,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      pointer-events: auto;
       box-shadow: 0 8px 22px rgba(40, 50, 45, .28);
       -webkit-tap-highlight-color: transparent;
     }
@@ -284,15 +295,35 @@
     .video-player:not(.is-muted) .vmute {
       left: auto;
       top: auto;
-      right: 12px;
-      bottom: 108px;
+      right: 54px;
+      bottom: 8px;
       transform: none;
-      width: 44px;
-      height: 44px;
-      background: rgba(36, 48, 44, .4);
+      width: 40px;
+      height: 40px;
+      background: rgba(36, 48, 44, .45);
       box-shadow: none;
     }
     .video-player:not(.is-muted) .vmute svg { width: 22px; height: 22px; }
+    .vfs {
+      position: absolute;
+      z-index: 5;
+      right: 8px;
+      bottom: 8px;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: rgba(36, 48, 44, .45);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .vfs svg { width: 20px; height: 20px; display: block; pointer-events: none; }
 
     .section { padding: 48px var(--pad); }
     .section.cream { background: var(--bg-cream); }
@@ -1760,10 +1791,15 @@
             controlslist="nodownload nofullscreen noremoteplayback"
             title="説明会向け動画"
           ></video>
-          <button type="button" class="vmute" data-vmute aria-label="ミュート解除">
-            <svg class="is-on" data-vmute-off viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
-            <svg data-vmute-on viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-          </button>
+          <div class="vframe">
+            <button type="button" class="vmute" data-vmute aria-label="ミュート解除">
+              <svg class="is-on" data-vmute-off viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+              <svg data-vmute-on viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            </button>
+            <button type="button" class="vfs" data-vfs aria-label="全画面">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg>
+            </button>
+          </div>
           <div class="vbar" data-vbar>
             <div class="vbar-progress" data-vbar-seek aria-label="再生位置">
               <div class="vbar-progress-fill" data-vbar-fill></div>
@@ -2130,12 +2166,15 @@
 
     (function () {
       function isFs(el) {
-        return document.fullscreenElement === el || document.webkitFullscreenElement === el;
+        var video = el && el.tagName === "VIDEO" ? el : (el && el.querySelector ? el.querySelector("video") : null);
+        return document.fullscreenElement === el || document.fullscreenElement === video
+          || document.webkitFullscreenElement === el || document.webkitFullscreenElement === video;
       }
       function enterFs(wrap, video) {
+        if (video.requestFullscreen) return video.requestFullscreen();
+        if (video.webkitRequestFullscreen) return video.webkitRequestFullscreen();
+        if (video.webkitEnterFullscreen) return video.webkitEnterFullscreen();
         if (wrap.requestFullscreen) return wrap.requestFullscreen();
-        if (wrap.webkitRequestFullscreen) return wrap.webkitRequestFullscreen();
-        if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
       }
       function exitFs() {
         if (document.exitFullscreen) return document.exitFullscreen();
@@ -2294,6 +2333,15 @@
           e.stopPropagation();
           if (isFs(wrap)) exitFs(); else enterFs(wrap, video);
         });
+        var fsBadge = wrap.querySelector("[data-vfs]");
+        if (fsBadge) fsBadge.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (isFs(wrap)) exitFs(); else enterFs(wrap, video);
+        });
+        video.addEventListener("webkitendfullscreen", function () {
+          if (autoplay) ensurePlay();
+        });
         if (seek) {
           seek.addEventListener("pointerdown", function (e) {
             if (e.button != null && e.button !== 0) return;
@@ -2328,7 +2376,7 @@
         });
         wrap.addEventListener("click", function (e) {
           if (!autoplay) return;
-          if (bar && bar.contains(e.target)) return;
+          if (e.target.closest && e.target.closest("[data-vbar], [data-vfs]")) return;
           e.preventDefault();
           toggleMute();
         });
