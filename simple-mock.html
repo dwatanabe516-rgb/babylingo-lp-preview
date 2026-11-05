@@ -1115,7 +1115,8 @@
     }
     .cta-lux.is-final .cta-lead {
       margin-top: 8px;
-      font-size: 15px;
+      font-size: clamp(11px, calc((100cqi - 48px) / 20), 14px);
+      letter-spacing: 0;
     }
 
 
@@ -1386,6 +1387,7 @@
     }
     .cta-lux-inner {
       position: relative;
+      container-type: inline-size;
       padding: 28px 14px 22px;
       border-radius: 22px;
       background:
@@ -1566,6 +1568,10 @@
       line-height: 1.6;
     }
     .cta-lead {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       margin: 0 0 14px;
       text-align: center;
       font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
@@ -1573,15 +1579,15 @@
       font-weight: 800;
       color: #5a4038;
       letter-spacing: .02em;
+      line-height: 1.4;
+      white-space: nowrap;
     }
     .cta-lead::before,
     .cta-lead::after {
       content: "";
-      display: inline-block;
-      width: 16px;
+      flex: 0 0 12px;
+      width: 12px;
       height: 2px;
-      margin: 0 10px;
-      vertical-align: middle;
       background: #c46752;
       transform: rotate(-22deg);
       border-radius: 2px;
