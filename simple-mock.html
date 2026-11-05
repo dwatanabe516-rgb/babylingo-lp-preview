@@ -406,8 +406,9 @@
     .worry-list li {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       margin-bottom: 20px;
+      min-width: 0;
     }
     .worry-list li:nth-child(even) { flex-direction: row-reverse; }
     .worry-list li:nth-child(even) .worry-bubble::before {
@@ -422,15 +423,15 @@
     }
     .worry-list li:last-child { margin-bottom: 0; }
     .worry-face {
-      flex: 0 0 100px;
-      width: 100px;
+      flex: 0 0 72px;
+      width: 72px;
       background: transparent;
       border: none;
       display: block;
     }
     .worry-face img {
-      width: 100px;
-      height: 100px;
+      width: 72px;
+      height: 72px;
       object-fit: cover;
       border-radius: 50%;
       display: block;
@@ -445,9 +446,10 @@
     }
     .worry-bubble b { margin-right: 4px; }
     .worry-bubble {
-      flex: 1;
+      flex: 1 1 0;
+      min-width: 0;
       position: relative;
-      padding: 16px 15px;
+      padding: 12px 12px;
       border-radius: 18px;
       background: #fff;
       border: 2.5px solid #4f9d99;
@@ -1783,49 +1785,49 @@
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-01.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble"><b>Q.</b> 日本語もまだなのに、英語を始めて大丈夫？</p>
+          <p class="worry-bubble"><b>Q.</b> 日本語もまだなのに、<br />英語を始めて大丈夫？</p>
         </li>
         <li>
           <span class="worry-face">
             <img src="img/logo_top.png" alt="BabyLingo!" width="96" height="96" />
           </span>
-          <p class="worry-bubble"><b>A.</b> 2歳までが最も自然に両立できるゴールデンタイムです。</p>
+          <p class="worry-bubble"><b>A.</b> 2歳までが最も自然に<br />両立できる<br />ゴールデンタイムです。</p>
         </li>
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-02.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble"><b>Q.</b> 英語はもう少し大きくなってからでいいのでは？</p>
+          <p class="worry-bubble"><b>Q.</b> 英語はもう少し大きく<br />なってからでいいのでは？</p>
         </li>
         <li>
           <span class="worry-face">
             <img src="img/logo_top.png" alt="BabyLingo!" width="96" height="96" />
           </span>
-          <p class="worry-bubble"><b>A.</b> 「言語の黄金期である0〜3歳」を逃さないことが最短ルートです。</p>
+          <p class="worry-bubble"><b>A.</b> 「言語の黄金期である<br />0〜3歳」を逃さないことが<br />最短ルートです。</p>
         </li>
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-03.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble"><b>Q.</b> 英語をやらせたいけど、結局何をするのが正解？</p>
+          <p class="worry-bubble"><b>Q.</b> 英語をやらせたいけど、<br />結局何をするのが正解？</p>
         </li>
         <li>
           <span class="worry-face">
             <img src="img/logo_top.png" alt="BabyLingo!" width="96" height="96" />
           </span>
-          <p class="worry-bubble"><b>A.</b> 教室やインターでも高額教材でもなく、「日常の中に英語がある環境（おうち英語）」を作ることです。</p>
+          <p class="worry-bubble"><b>A.</b> 教室やインターでも<br />高額教材でもなく、<br />「日常の中に英語がある環境<br />（おうち英語）」を作ることです。</p>
         </li>
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-04.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble"><b>Q.</b> 親の私が英語苦手なのに、家で教えられる…？</p>
+          <p class="worry-bubble"><b>Q.</b> 親の私が英語苦手なのに、<br />家で教えられる…？</p>
         </li>
         <li>
           <span class="worry-face">
             <img src="img/logo_top.png" alt="BabyLingo!" width="96" height="96" />
           </span>
-          <p class="worry-bubble"><b>A.</b> 親御さんの英語力は一切関係ありません。</p>
+          <p class="worry-bubble"><b>A.</b> 親御さんの英語力は<br />一切関係ありません。</p>
         </li>
       </ul>
       <p class="panel-note">バイリンガルキッズを育てる方法を詳しく教えます！</p>
