@@ -79,7 +79,7 @@
       max-height: 100svh;
       display: flex;
       flex-direction: column;
-      background: #1a1614;
+      background: #000;
       overflow: hidden;
     }
     .mv-stage {
@@ -107,28 +107,12 @@
       width: 100%;
       height: 100%;
       max-width: none;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center center;
       background: #000;
     }
-    .mv-screen::before {
-      content: "";
-      position: absolute;
-      left: 0; right: 0; top: 0;
-      height: 280px;
-      background: linear-gradient(180deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.62) 48%, transparent);
-      pointer-events: none;
-      z-index: 4;
-    }
-    .mv-screen::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 120px;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
-      pointer-events: none;
-      z-index: 3;
-    }
+    .mv-screen::before,
+    .mv-screen::after { content: none; }
     .mv-scroll {
       position: absolute;
       z-index: 6;
