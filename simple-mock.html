@@ -2,7 +2,6 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="robots" content="noindex" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>BabyLingo! LP モック（Web）｜BabyPark online構成</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1708,7 +1707,7 @@
       <div class="mv-stage">
         <div class="video-player" data-video-player>
           <video
-            src="img/hero.mp4"
+            src="img/hero.mp4?v=faststart"
             muted
             autoplay
             loop
@@ -2181,6 +2180,8 @@
         }
 
         video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
         if (autoplay) ensurePlay();
         syncMute();
         syncProgress();
@@ -2198,6 +2199,8 @@
         video.addEventListener("pause", syncPlay);
         video.addEventListener("timeupdate", syncProgress);
         video.addEventListener("loadedmetadata", syncProgress);
+        video.addEventListener("loadeddata", function () { if (autoplay) ensurePlay(); });
+        video.addEventListener("canplay", function () { if (autoplay) ensurePlay(); });
         video.addEventListener("durationchange", syncProgress);
         video.addEventListener("volumechange", syncMute);
 
@@ -2265,12 +2268,14 @@
           wrap.classList.remove("is-controls-on");
           if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
         });
+        var hasPlayed = false;
+        video.addEventListener("playing", function () { hasPlayed = true; });
         if (autoplay && "IntersectionObserver" in window) {
           var io = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
               if (entry.isIntersecting) {
                 if (video.paused) ensurePlay();
-              } else if (!isFs(wrap) && !video.paused) {
+              } else if (hasPlayed && !isFs(wrap) && !video.paused) {
                 video.pause();
               }
             });
