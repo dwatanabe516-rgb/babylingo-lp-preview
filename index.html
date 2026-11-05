@@ -259,6 +259,40 @@
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
+    .vmute {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 76px;
+      height: 76px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: rgba(36, 48, 44, .55);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(40, 50, 45, .28);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .vmute svg { width: 36px; height: 36px; display: none; pointer-events: none; }
+    .vmute svg.is-on { display: block; }
+    .video-player:not(.is-muted) .vmute {
+      left: auto;
+      top: auto;
+      right: 12px;
+      bottom: 108px;
+      transform: none;
+      width: 44px;
+      height: 44px;
+      background: rgba(36, 48, 44, .4);
+      box-shadow: none;
+    }
+    .video-player:not(.is-muted) .vmute svg { width: 22px; height: 22px; }
 
     .section { padding: 48px var(--pad); }
     .section.cream { background: var(--bg-cream); }
@@ -1713,7 +1747,7 @@
         </p>
       </header>
       <div class="mv-stage">
-        <div class="video-player" data-video-player>
+        <div class="video-player is-muted" data-video-player>
           <video
             src="img/hero.mp4?v=faststart"
             muted
@@ -1726,6 +1760,10 @@
             controlslist="nodownload nofullscreen noremoteplayback"
             title="説明会向け動画"
           ></video>
+          <button type="button" class="vmute" data-vmute aria-label="ミュート解除">
+            <svg class="is-on" data-vmute-off viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+            <svg data-vmute-on viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          </button>
           <div class="vbar" data-vbar>
             <div class="vbar-progress" data-vbar-seek aria-label="再生位置">
               <div class="vbar-progress-fill" data-vbar-fill></div>
@@ -2144,13 +2182,25 @@
           if (iconPlay) iconPlay.classList.toggle("is-on", paused);
           if (iconPause) iconPause.classList.toggle("is-on", !paused);
           if (playBtn) playBtn.setAttribute("aria-label", paused ? "再生" : "一時停止");
+          if (autoplay) {
+            wrap.classList.remove("is-controls-on");
+            wrap.classList.remove("is-paused");
+            return;
+          }
           if (paused) showControls(true); else showControls(false);
         }
         function syncMute() {
           var muted = video.muted || video.volume === 0;
+          wrap.classList.toggle("is-muted", muted);
           if (iconMuted) iconMuted.classList.toggle("is-on", muted);
           if (iconUnmuted) iconUnmuted.classList.toggle("is-on", !muted);
+          var badgeOff = wrap.querySelector("[data-vmute-off]");
+          var badgeOn = wrap.querySelector("[data-vmute-on]");
+          var badge = wrap.querySelector("[data-vmute]");
+          if (badgeOff) badgeOff.classList.toggle("is-on", muted);
+          if (badgeOn) badgeOn.classList.toggle("is-on", !muted);
           if (muteBtn) muteBtn.setAttribute("aria-label", muted ? "ミュート解除" : "ミュート");
+          if (badge) badge.setAttribute("aria-label", muted ? "ミュート解除" : "ミュート");
         }
         function syncProgress() {
           if (!seeking && isFinite(video.currentTime)) lastTime = video.currentTime;
@@ -2179,6 +2229,19 @@
           var x = e.clientX - rect.left;
           return Math.max(0, Math.min(1, x / rect.width));
         }
+        function toggleMute() {
+          var t = isFinite(video.currentTime) ? video.currentTime : lastTime;
+          var turningOn = video.muted;
+          video.muted = !video.muted;
+          if (turningOn) {
+            var p = video.play();
+            if (p && typeof p.catch === "function") p.catch(function () {});
+          }
+          try {
+            if (Math.abs(video.currentTime - t) > 0.35) video.currentTime = t;
+          } catch (err) {}
+          syncMute();
+        }
         function applySeek(ratio) {
           if (!isFinite(video.duration) || video.duration <= 0) return;
           seek._ratio = ratio;
@@ -2197,7 +2260,7 @@
         else syncPlay();
 
         video.addEventListener("play", function () {
-          if (autoplay && !wrap.dataset.touched) {
+          if (autoplay) {
             wrap.classList.remove("is-controls-on");
             wrap.classList.remove("is-paused");
             return;
@@ -2224,13 +2287,7 @@
         if (muteBtn) muteBtn.addEventListener("click", function (e) {
           e.preventDefault();
           e.stopPropagation();
-          var t = isFinite(video.currentTime) ? video.currentTime : lastTime;
-          video.muted = !video.muted;
-          try {
-            if (Math.abs(video.currentTime - t) > 0.35) video.currentTime = t;
-          } catch (err) {}
-          if (!video.muted && video.paused) ensurePlay();
-          syncMute();
+          toggleMute();
         });
         if (fsBtn) fsBtn.addEventListener("click", function (e) {
           e.preventDefault();
@@ -2265,8 +2322,18 @@
             showControls(false);
           });
         }
-        wrap.addEventListener("pointermove", function () { showControls(false); });
+        wrap.addEventListener("pointermove", function () {
+          if (autoplay) return;
+          showControls(false);
+        });
+        wrap.addEventListener("click", function (e) {
+          if (!autoplay) return;
+          if (bar && bar.contains(e.target)) return;
+          e.preventDefault();
+          toggleMute();
+        });
         wrap.addEventListener("pointerdown", function (e) {
+          if (autoplay) return;
           wrap.dataset.touched = "1";
           if (bar && bar.contains(e.target)) return;
           showControls(false);
