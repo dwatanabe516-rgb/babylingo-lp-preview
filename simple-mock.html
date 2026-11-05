@@ -1056,6 +1056,107 @@
     .panel-body { padding: 22px 18px 20px; }
     .panel-lead { margin: 0; }
 
+    .mv-kicker {
+      position: absolute;
+      z-index: 6;
+      top: 68px;
+      left: 14px;
+      right: 14px;
+      margin: 0;
+      text-align: center;
+      color: #fff;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-weight: 900;
+      font-size: 15px;
+      line-height: 1.55;
+      text-shadow: 0 2px 10px rgba(0,0,0,.7);
+    }
+    .mv-kicker .mark {
+      display: inline-block;
+      margin-bottom: 6px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: #c46752;
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+    .mv-about {
+      padding: 26px var(--pad) 6px;
+      background: #fffaf6;
+      text-align: center;
+    }
+    .mv-about p {
+      margin: 0 auto;
+      max-width: 36em;
+      font-size: 14.5px;
+      line-height: 1.9;
+    }
+    .guarantee {
+      margin: 12px 0 0;
+      text-align: center;
+      font-weight: 800;
+      color: var(--coral-deep);
+      font-size: 14px;
+    }
+    .plan-list { display: grid; gap: 12px; margin-top: 14px; }
+    .plan-card {
+      border-radius: 18px;
+      padding: 16px 14px 14px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(120,60,40,.08);
+    }
+    .plan-card.is-annual { background: linear-gradient(180deg, #e7f7e4, #fff); }
+    .plan-card.is-month { background: linear-gradient(180deg, #fff4df, #fff); }
+    .plan-card.is-bp { background: linear-gradient(180deg, #fde4dc, #fff); }
+    .plan-card h3 {
+      margin: 4px 0 2px;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 18px;
+    }
+    .plan-card .sub { margin: 0; font-size: 12px; color: var(--muted); }
+    .plan-card .yen { margin: 10px 0 0; font-weight: 900; }
+    .plan-card .yen strong { font-size: 28px; }
+    .plan-save {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #e23b3b;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+    .start-list { display: grid; gap: 12px; }
+    .start-card {
+      border-radius: 18px;
+      padding: 16px 14px;
+      background: #fff;
+      text-align: center;
+    }
+    .start-card.is-a { box-shadow: inset 0 0 0 2px #f57f64; }
+    .start-card.is-b { box-shadow: inset 0 0 0 2px #3f928f; }
+    .start-card.is-c { box-shadow: inset 0 0 0 2px #e4b23c; }
+    .start-card h3 {
+      margin: 0 0 8px;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 16px;
+    }
+    .start-card p { margin: 0 0 12px; font-size: 13.5px; line-height: 1.7; }
+    .start-card .wait {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+    .why-block { margin-top: 22px; }
+    .why-block h3 {
+      margin: 0 0 12px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
     /* バイリンガル動画（先頭MVとは別） */
     .movie-embed {
       margin-top: 6px;
@@ -1463,6 +1564,11 @@
           <img src="img/logo_top.png" alt="0歳からのおうち英語 BabyLingo!" width="240" height="62" />
         </a>
       </header>
+      <p class="mv-kicker">
+        <span class="mark">特許取得</span><br />
+        わが子をバイリンガルに育て上げた親たちが賛同<br />
+        おうち英語プログラム Baby Lingo!
+      </p>
       <div class="mv-stage">
         <div class="video-player" data-video-player>
           <video muted autoplay loop playsinline webkit-playsinline preload="auto" aria-label="縦動画（実績・なぜ0歳など）">
@@ -1499,6 +1605,10 @@
       </button>
     </section>
 
+    <section class="mv-about" aria-label="プログラムの説明">
+      <p>Baby Lingo!は、実際にわが子をバイリンガルに育て上げた親たちが、「英語が話せない家庭でも再現できる方法」を追求して作ったプログラムです。</p>
+    </section>
+
     <!-- ② 即CTA -->
     <section class="cta-lux" id="cta1">
       <div class="cta-lux-inner">
@@ -1514,6 +1624,7 @@
             </p>
           </div>
           <p class="cta-month">月額 <em>¥1,980〜</em>（税込）</p>
+          <p class="guarantee">安心の返金保証制度あり</p>
           <hr class="cta-dots" />
           <p class="cta-brand-pill">BabyLingo!</p>
           <h3 class="cta-offer-ttl">「無料ZOOM説明会」</h3>
@@ -1528,32 +1639,32 @@
     <!-- ③ お悩み図 -->
     <section class="sec-lux is-mint" id="worries">
       <div class="sec-lux-inner">
-      <p class="sec-ribbon is-mint">まずはココ、あるあるです</p>
-      <h2 class="section-ttl">こんなお悩みを<br />お持ちの方はいませんか？</h2>
+      <p class="sec-ribbon is-mint">おうち英語に興味はあるけれど…</p>
+      <h2 class="section-ttl">こんなモヤモヤ、<br />ありませんか？</h2>
       <ul class="worry-list">
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-01.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble">英語が話せないのに、<br />語りかけできる気がしない…</p>
+          <p class="worry-bubble">日本語もまだなのに、<br />英語を始めて大丈夫？</p>
         </li>
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-02.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble">教材を買っても、<br />続かない…</p>
+          <p class="worry-bubble">英語はもう少し大きくなってから<br />でいいのでは？</p>
         </li>
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-03.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble">英語を「勉強」に<br />したくない…</p>
+          <p class="worry-bubble">英語をやらせたいけど、<br />結局何をするのが正解？</p>
         </li>
         <li>
           <span class="worry-face" aria-hidden="true">
             <img src="img/char-worry-04.png" alt="" width="96" height="96" />
           </span>
-          <p class="worry-bubble">かけ流しだけで<br />大丈夫なの？</p>
+          <p class="worry-bubble">親の私が英語苦手なのに、<br />家で教えられる…？</p>
         </li>
       </ul>
       </div>
@@ -1562,30 +1673,31 @@
     <!-- ④ 特長パネル（要点のみ／詳細は説明会） -->
     <section class="sec-lux is-soft" id="features">
       <div class="sec-lux-inner">
-      <p class="sec-ribbon">BabyLingo!だからできること</p>
-      <h2 class="section-ttl">BabyLingo!の特長</h2>
+      <p class="sec-ribbon">特許取得</p>
+      <h2 class="section-ttl">BabyLingo!だから<br />できること</h2>
+      <p class="panel-note" style="margin:0 0 16px">BabyLingo!はなぜ、バイリンガルを育てられるのか。</p>
 
       <article class="panel">
-        <div class="panel-head">01 語りかけが中心</div>
+        <div class="panel-head">01 成功者共通の「語りかけ」</div>
         <div class="panel-body">
-          <p class="panel-lead">お母さまが英語を話せなくても、<br /><span class="hl">正しい語りかけができる</span></p>
+          <p class="panel-lead">お母さまが英語を話せなくても、子どもの発語を引き出す<span class="hl">「語りかけの仕組み」</span>があります。</p>
         </div>
       </article>
 
       <article class="panel">
-        <div class="panel-head">02 連動型コンテンツ</div>
+        <div class="panel-head">02 日常に定着する「連動型コンテンツ」</div>
         <div class="panel-body">
-          <p class="panel-lead">同じフレーズに、<br /><span class="hl">何度も出会う設計</span></p>
+          <p class="panel-lead">同じフレーズに自然と何度も出会う設計で、<span class="hl">自然と発話する</span>仕組みがあります。</p>
         </div>
       </article>
 
       <article class="panel">
-        <div class="panel-head">03 続けられるサポート</div>
+        <div class="panel-head">03 挫折させない「続けられるサポート」</div>
         <div class="panel-body">
-          <p class="panel-lead">「これで合ってる？」を<br /><span class="hl">ひとりで抱えない</span></p>
+          <p class="panel-lead">「これで合ってる？」をひとりで抱えない、<span class="hl">おうち英語を習慣化する伴走体制</span>が整っています。</p>
         </div>
       </article>
-      <p class="panel-note">くわしい進め方は、説明会でお伝えします</p>
+      <p class="panel-note">家庭で育てる実践ステップも、説明会でお伝えします</p>
       </div>
     </section>
 
@@ -1596,11 +1708,10 @@
         <h2 class="section-ttl">バイリンガルって、<br />こんな感じ</h2>
         <div class="movie-embed">
           <iframe
-            src="https://www.youtube.com/embed/ygV-baL8z_k?rel=0"
-            title="BabyLingo! バイリンガル紹介動画"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            src="https://drive.google.com/file/d/1qcH7GxUTIt5OZnkGyAGc38u6HUdVxLRp/preview"
+            title="説明会用の動画"
+            allow="autoplay; fullscreen"
             allowfullscreen
-            loading="lazy"
           ></iframe>
         </div>
         <p class="movie-cap">
@@ -1630,31 +1741,54 @@
       <h2 class="section-ttl">料金・対象</h2>
       <div class="price-fig">
         <p class="price-catch">はじめるハードルを低く</p>
-        <div class="price-card">
-        <p class="price-pill">BabyLingo!の料金について</p>
-        <table class="price-table">
-          <tr>
-            <th>月額</th>
-            <td>¥1,980〜</td>
-          </tr>
-          <tr>
-            <th>初期費用</th>
-            <td class="muted-cell">0円</td>
-          </tr>
-        </table>
+        <div class="plan-list">
+          <article class="plan-card is-annual">
+            <p class="plan-save">単月プランに比べ<br />年額で11,880円お得！</p>
+            <h3>年間プラン</h3>
+            <p class="sub">12ヶ月毎の更新</p>
+            <p class="yen"><small>毎月払い</small> 月額 <strong>1,980</strong>円（税込）</p>
+          </article>
+          <article class="plan-card is-month">
+            <h3>単月プラン</h3>
+            <p class="sub">1ヶ月毎の更新</p>
+            <p class="yen"><small>毎月払い</small> 月額 <strong>2,970</strong>円（税込）</p>
+          </article>
+          <article class="plan-card is-bp">
+            <h3>ベビーパーク生徒様プラン</h3>
+            <p class="sub">1ヶ月毎の更新</p>
+            <p class="yen"><small>毎月払い</small> 月額 <strong>1,980</strong>円（税込）</p>
+          </article>
+        </div>
         <ul class="price-foot">
-          <li>※ 税込・プランによる／自動更新</li>
-          <li>※ 詳細は説明会または料金ページで</li>
+          <li>※ 税込・自動更新</li>
+          <li>安心の返金保証制度あり</li>
         </ul>
-        </div>
-        <p class="audience-label">こんな方におすすめ</p>
-        <div class="audience-chips">
-          <div class="chip is-on">BabyPark会員<small>対象</small></div>
-          <div class="chip is-on">0〜7か月<small>特におすすめ</small></div>
-          <div class="chip">おうち英語<small>毎日の中で</small></div>
-          <div class="chip">語りかけ<small>仕組みがある</small></div>
-        </div>
       </div>
+      </div>
+    </section>
+
+    <!-- ⑦ 申し込み方法 -->
+    <section class="sec-lux" id="start">
+      <div class="sec-lux-inner">
+        <p class="sec-ribbon">選べるスタート方法</p>
+        <h2 class="section-ttl">ご入会・お申し込み方法</h2>
+        <div class="start-list">
+          <article class="start-card is-a">
+            <h3>A. 無料説明会から申し込む</h3>
+            <p>まずは進め方やメリットを確認したい方へ。おすすめです。</p>
+            <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">無料説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
+          </article>
+          <article class="start-card is-b">
+            <h3>B. 今すぐ直接申し込む</h3>
+            <p>説明会は不要です。すぐに受講をスタートしたい方へ。</p>
+            <a class="btn" href="https://lingo.babypark.jp/signup" target="_blank" rel="noopener">今すぐ申し込む<span class="go" aria-hidden="true">→</span></a>
+          </article>
+          <article class="start-card is-c">
+            <h3>C. 個別に問い合わせる</h3>
+            <p>事前に聞いておきたい疑問や不安がある方へ。</p>
+            <span class="wait">お問い合わせフォームのリンクは確認中です</span>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1694,6 +1828,28 @@
         <p>大丈夫です。相性がいいです。</p>
       </details>
       </div>
+      <div class="why-block">
+        <h3>言語科学やバイリンガル育児の成功者たちの答えは、共通しています。</h3>
+        <div class="faq-box">
+          <details class="faq" open>
+            <summary>日本語もまだなのに、英語を始めて大丈夫？</summary>
+            <p>2歳までが、最も自然に再立できるゴールデンタイムです。</p>
+          </details>
+          <details class="faq" open>
+            <summary>英語はもう少し大きくなってからでいいのでは？</summary>
+            <p>「言語の黄金期である0〜2歳」を逃さないことが、最短ルートです。</p>
+          </details>
+          <details class="faq" open>
+            <summary>英語をやらせたいけど、結局何をするのが正解？</summary>
+            <p>教室やインターネットでも高額教材でもなく、「日常の中に英語がある環境（おうち英語）」を作ることです。</p>
+          </details>
+          <details class="faq" open>
+            <summary>親の私が英語苦手なのに、家で教えられる…？</summary>
+            <p>親御さんの英語力は、一切関係ありません。</p>
+          </details>
+        </div>
+        <p class="panel-note">バイリンガルキッズを育てる方法は、説明会で詳しくお伝えします。</p>
+      </div>
       </div>
     </section>
 
@@ -1701,7 +1857,7 @@
     <section class="trust-lux">
       <div class="trust-lux-inner">
         <p class="trust-line">BABYPARK × BABYLINGO!</p>
-        <p>あのベビーパークが、本気でつくりました。</p>
+        <p>全国で親子教室を展開するベビーパークが監修しています。</p>
       </div>
     </section>
 
