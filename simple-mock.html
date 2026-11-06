@@ -1317,6 +1317,31 @@
       font-size: 16px;
     }
     .start-card p { margin: 0 0 12px; font-size: 13.5px; line-height: 1.7; }
+    .seminar-apply { display: block; }
+    .seminar-full {
+      display: none;
+      width: fit-content;
+      margin: 0 auto 10px;
+      padding: 6px 12px 8px;
+      border-radius: 12px;
+      background: #c46752;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      position: relative;
+    }
+    .seminar-full::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -6px;
+      transform: translateX(-50%);
+      border-width: 6px 6px 0;
+      border-style: solid;
+      border-color: #c46752 transparent transparent;
+    }
+    .seminar-apply.is-almost .seminar-full { display: block; }
     .start-card .wait {
       display: inline-block;
       font-size: 12px;
@@ -1992,7 +2017,10 @@
             <h3>A. 無料説明会から申し込む</h3>
             <p class="badge-reco">おすすめ</p>
             <p>まずは進め方やメソッドを確認したい方へ</p>
-            <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">無料説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
+            <span class="seminar-apply">
+              <span class="seminar-full">まもなく満席！</span>
+              <a class="btn" href="https://lingo.babypark.jp/seminars" target="_blank" rel="noopener">無料説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
+            </span>
           </article>
           <article class="start-card is-b">
             <h3>B. 今すぐ直接申し込む</h3>
@@ -2368,6 +2396,19 @@
           io.observe(wrap);
         }
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      fetch("https://u5j6joroxe.execute-api.ap-northeast-1.amazonaws.com/v1/seminars")
+        .then(function (res) { return res.ok ? res.json() : []; })
+        .then(function (list) {
+          if (!Array.isArray(list) || !list[0] || !list[0].almost_full) return;
+          document.querySelectorAll(".seminar-apply").forEach(function (el) {
+            el.classList.add("is-almost");
+          });
+        })
+        .catch(function () {});
     })();
   </script>
 </body>
