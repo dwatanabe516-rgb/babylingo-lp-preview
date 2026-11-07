@@ -1387,25 +1387,52 @@
     }
 
 
+    #worries { padding-bottom: 6px; }
+    #worries + #qa { padding-top: 20px; }
     .worry-plain {
       margin: 4px 0 0;
-      padding: 0;
+      padding: 0 0 0 14px;
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 14px;
     }
     .worry-plain li {
+      position: relative;
       margin: 0;
-      padding: 16px;
+      padding: 14px 16px;
       border-radius: 18px;
       background: #fff;
-      box-shadow: 0 8px 18px rgba(63, 146, 143, .08);
+      border: 2.5px solid #4f9d99;
+      box-shadow: 0 10px 22px rgba(42, 122, 118, .14);
       font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
-      font-size: 18px;
-      font-weight: 900;
+      font-size: 17px;
+      font-weight: 800;
       line-height: 1.55;
-      color: #2c4a46;
+      text-align: left;
+      color: #245a57;
+      word-break: normal;
+      line-break: strict;
+      overflow-wrap: break-word;
+    }
+    .worry-plain li::before,
+    .worry-plain li::after {
+      content: "";
+      position: absolute;
+      top: 18px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+    .worry-plain li::before {
+      left: -11px;
+      border-width: 8px 11px 8px 0;
+      border-color: transparent #4f9d99 transparent transparent;
+    }
+    .worry-plain li::after {
+      left: -7px;
+      border-width: 6px 8px 6px 0;
+      border-color: transparent #fff transparent transparent;
     }
     .faq-note {
       margin: 16px 0 0;
@@ -1928,6 +1955,46 @@
       </div>
     </section>
 
+    <!-- ⑧ FAQ：短答 -->
+    <section class="sec-lux is-mint" id="qa">
+      <div class="sec-lux-inner">
+      <p class="sec-ribbon is-mint">気になること、先に解消</p>
+      <h2 class="section-ttl">科学と成功者が<br />導き出した答え</h2>
+      <div class="faq-box">
+      <details class="faq">
+        <summary>Q1. 日本語もまだなのに、英語を始めて大丈夫？</summary>
+        <p><b>A.</b> 心配いりません。2歳までに始めることで無理なく自然に両立でき、英語が話せるだけでなく「思考力や集中力のある賢い子」に育ちます。</p>
+        <p>言語科学の研究でも、乳幼児期のバイリンガル環境は脳にとって最も良い刺激と証明済み。日本語の発達を邪魔することなく、2つの言葉を自然に吸収しながら、これからの時代に必要な高い思考力や対応力が日々の生活の中で育ちます。</p>
+      </details>
+      <details class="faq">
+        <summary>Q2. 英語はもう少し大きくなってからでいいのでは？</summary>
+        <p><b>A.</b> 「言語の黄金期である0〜3歳」を逃さないことが、最も無理のない最短ルートです。</p>
+        <p>大きくなってから文法や単語を「勉強」として詰め込むのは、子どもにとっても大きな負担になります。あらゆる周波数の音をそのまま丸ごと吸収できるのは乳幼児期ならではの特権。この黄金期にスタートすることで、苦労することなく自然な「英語耳」と「きれいな発音」が定着します。</p>
+      </details>
+      <details class="faq">
+        <summary>Q3. 英語をやらせたいけど、結局何をするのが一番効果的？</summary>
+        <p><b>A.</b> 週1回の教室や高額教材、インターではなく、「日常の中に英語がある環境（おうち英語）」を作ることです。</p>
+        <p>バイリンガルに育つための決定的な条件は「生活の中で当たり前に英語にふれる時間」です。年間数十時間の英会話教室や、家に置いたままの高額教材、家庭で日本語に戻ってしまうプレスクールでは定着しないのが実情です。だからこそ、日々の暮らしそのものを英語空間に変える「おうち英語」が最も効果を発揮します。</p>
+      </details>
+      <details class="faq">
+        <summary>Q4. かけ流しだけで話せるようになる？</summary>
+        <p><b>A.</b> かけ流し「だけ」では話せるようになりません。</p>
+        <p>音に耳を慣らす効果はありますが、発話につなげるには「親子のやりとり（語りかけ）」が不可欠であることが科学的にも証明されています。BabyLingo!は、親御さんが英語を話せなくても、生活の中で自然に語りかけができる仕組みで子どもの発話を引き出します。</p>
+      </details>
+      <details class="faq">
+        <summary>Q5. 親が英語苦手なのに、家で教えられる？</summary>
+        <p><b>A.</b> 親御さんの英語力は一切関係ありません。英語が話せなくても子どもの言葉を自然と引き出す「専用の仕組み」があります。</p>
+        <p>親御さんがペラペラと英語を話す必要はまったくありません。自らも英語が話せなかった親たちが研究を重ね、「親が話せなくても日常のやりとりで子どもの発話を促せる特許メソッド」を開発しました。英語に自信がないママ・パパでも、今日から迷わず安心して取り組めます。</p>
+      </details>
+      </div>
+      <p class="faq-note">※詳しいエビデンスや実践法は説明会でお伝えします</p>
+      <p class="qa-close">バイリンガルキッズを育てる方法を詳しく教えます！</p>
+      <p class="qa-cta">
+        <a class="btn" href="https://lingo.babypark.jp/seminars" target="_blank" rel="noopener">無料説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
+      </p>
+      </div>
+    </section>
+
     <!-- ④ 特長パネル（要点のみ／詳細は説明会） -->
     <section class="sec-lux is-soft" id="features">
       <div class="sec-lux-inner">
@@ -2054,46 +2121,6 @@
             <span class="wait">お問い合わせフォーム（喜田先生にリンクを確認）</span>
           </article>
         </div>
-      </div>
-    </section>
-
-    <!-- ⑧ FAQ：短答 -->
-    <section class="sec-lux is-mint" id="qa">
-      <div class="sec-lux-inner">
-      <p class="sec-ribbon is-mint">気になること、先に解消</p>
-      <h2 class="section-ttl">科学と成功者が<br />導き出した答え</h2>
-      <div class="faq-box">
-      <details class="faq">
-        <summary>Q1. 日本語もまだなのに、英語を始めて大丈夫？</summary>
-        <p><b>A.</b> 心配いりません。2歳までに始めることで無理なく自然に両立でき、英語が話せるだけでなく「思考力や集中力のある賢い子」に育ちます。</p>
-        <p>言語科学の研究でも、乳幼児期のバイリンガル環境は脳にとって最も良い刺激と証明済み。日本語の発達を邪魔することなく、2つの言葉を自然に吸収しながら、これからの時代に必要な高い思考力や対応力が日々の生活の中で育ちます。</p>
-      </details>
-      <details class="faq">
-        <summary>Q2. 英語はもう少し大きくなってからでいいのでは？</summary>
-        <p><b>A.</b> 「言語の黄金期である0〜3歳」を逃さないことが、最も無理のない最短ルートです。</p>
-        <p>大きくなってから文法や単語を「勉強」として詰め込むのは、子どもにとっても大きな負担になります。あらゆる周波数の音をそのまま丸ごと吸収できるのは乳幼児期ならではの特権。この黄金期にスタートすることで、苦労することなく自然な「英語耳」と「きれいな発音」が定着します。</p>
-      </details>
-      <details class="faq">
-        <summary>Q3. 英語をやらせたいけど、結局何をするのが一番効果的？</summary>
-        <p><b>A.</b> 週1回の教室や高額教材、インターではなく、「日常の中に英語がある環境（おうち英語）」を作ることです。</p>
-        <p>バイリンガルに育つための決定的な条件は「生活の中で当たり前に英語にふれる時間」です。年間数十時間の英会話教室や、家に置いたままの高額教材、家庭で日本語に戻ってしまうプレスクールでは定着しないのが実情です。だからこそ、日々の暮らしそのものを英語空間に変える「おうち英語」が最も効果を発揮します。</p>
-      </details>
-      <details class="faq">
-        <summary>Q4. かけ流しだけで話せるようになる？</summary>
-        <p><b>A.</b> かけ流し「だけ」では話せるようになりません。</p>
-        <p>音に耳を慣らす効果はありますが、発話につなげるには「親子のやりとり（語りかけ）」が不可欠であることが科学的にも証明されています。BabyLingo!は、親御さんが英語を話せなくても、生活の中で自然に語りかけができる仕組みで子どもの発話を引き出します。</p>
-      </details>
-      <details class="faq">
-        <summary>Q5. 親が英語苦手なのに、家で教えられる？</summary>
-        <p><b>A.</b> 親御さんの英語力は一切関係ありません。英語が話せなくても子どもの言葉を自然と引き出す「専用の仕組み」があります。</p>
-        <p>親御さんがペラペラと英語を話す必要はまったくありません。自らも英語が話せなかった親たちが研究を重ね、「親が話せなくても日常のやりとりで子どもの発話を促せる特許メソッド」を開発しました。英語に自信がないママ・パパでも、今日から迷わず安心して取り組めます。</p>
-      </details>
-      </div>
-      <p class="faq-note">※詳しいエビデンスや実践法は説明会でお伝えします</p>
-      <p class="qa-close">バイリンガルキッズを育てる方法を詳しく教えます！</p>
-      <p class="qa-cta">
-        <a class="btn" href="https://lingo.babypark.jp/seminars" target="_blank" rel="noopener">無料説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
-      </p>
       </div>
     </section>
 
