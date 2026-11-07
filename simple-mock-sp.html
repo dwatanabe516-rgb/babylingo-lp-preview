@@ -1188,14 +1188,30 @@
       z-index: 6;
       left: 14px;
       right: 14px;
-      bottom: 54px;
+      bottom: 46px;
       margin: 0;
-      color: #4a4038;
+      color: #3c342c;
       text-align: center;
-      font-size: 12.5px;
-      font-weight: 700;
-      line-height: 1.7;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1.65;
     }
+    .patent-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin: 0 0 4px;
+      padding: 3px 8px 3px 3px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #fbe7a4 0%, #e2b84a 100%);
+      border: 1px solid #a97820;
+      color: #5a3e10;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
+    }
+    .patent-badge-mark { width: 22px; height: 22px; flex: none; }
+    .patent-badge-text { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
+    .patent-badge b { font-size: 10px; letter-spacing: .04em; }
+    .patent-badge small { font-size: 9px; font-weight: 800; letter-spacing: .02em; }
     .patent-seal {
       display: inline-flex;
       align-items: center;
@@ -1369,6 +1385,45 @@
       font-size: 16px;
       line-height: 1.7;
     }
+
+
+    .worry-plain {
+      margin: 4px 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .worry-plain li {
+      margin: 0;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(63, 146, 143, .08);
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1.55;
+      color: #2c4a46;
+    }
+    .faq-note {
+      margin: 16px 0 0;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .qa-close {
+      margin: 18px 0 0;
+      text-align: center;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1.6;
+      color: var(--mint-deep);
+    }
+    .qa-cta { margin: 14px 0 0; text-align: center; }
 
     /* バイリンガル動画（先頭MVとは別） */
     .movie-embed {
@@ -1762,7 +1817,16 @@
           <img src="img/logo_top.png" alt="0歳からのおうち英語 BabyLingo!" width="240" height="62" />
         </a>
         <p class="mv-kicker">
-          <span class="mark">特許取得</span>
+          <span class="patent-badge">
+            <svg class="patent-badge-mark" viewBox="0 0 32 32" aria-hidden="true">
+              <circle cx="16" cy="16" r="13" fill="#fff8e4" stroke="#8a5a12" stroke-width="2"/>
+              <path fill="#c9a227" d="M16 5.2 17.9 10l5 .4-3.8 3.3 1.2 4.8L16 15.8l-4.3 2.7 1.2-4.8L9.1 10.4l5-.4z"/>
+            </svg>
+            <span class="patent-badge-text">
+              <b>特許取得済</b>
+              <small>第7072863号</small>
+            </span>
+          </span>
           <span class="kicker-line">＼ わが子をバイリンガルに</span>
           <span class="kicker-line">育て上げた親たちが開発 ／</span>
           <span class="kicker-sub">おうち英語プログラム</span>
@@ -1818,7 +1882,7 @@
           </div>
         </div>
       </div>
-      <p class="mv-caption">BabyLingo!は、実際にわが子をバイリンガルに育て上げた親たちが、「英語が話せない家庭でも再現できる方法」を追求して作ったプログラムです。</p>
+      <p class="mv-caption">「英語が話せない親たち」が、わが子をバイリンガルに育て上げたメソッド。<br />それを誰でも家庭で再現できるよう、研究を重ねて生まれたのがBabyLingo!です。</p>
       <button type="button" class="mv-scroll" data-mv-scroll data-mv-target="#cta1" aria-label="下へ">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
@@ -1845,9 +1909,8 @@
           <h3 class="cta-offer-ttl">「無料ZOOM説明会」</h3>
           <p class="cta-offer-sub">進め方だけ、まずは聞いてみてください</p>
         </div>
-        <p class="cta-lead">おうち英語を、お得に体験できます</p>
         <p class="cta-hint">数項目で申込み完了！</p>
-        <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">無料ZOOM説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
+        <a class="btn" href="https://lingo.babypark.jp/seminars" target="_blank" rel="noopener">無料ZOOM説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
       </div>
     </section>
 
@@ -1855,62 +1918,13 @@
     <section class="sec-lux is-mint" id="worries">
       <div class="sec-lux-inner">
       <p class="sec-ribbon is-mint">まずはココ、あるあるです</p>
-      <h2 class="section-ttl">おうち英語に興味は<br />あるけれど…<br />こんなモヤモヤ、<br />ありませんか？</h2>
-      <h3 class="talk-lead">言語科学やバイリンガル育児の<br />成功者たちの答えは共通しています。</h3>
-      <ul class="worry-list">
-        <li>
-          <span class="worry-face" aria-hidden="true">
-            <img src="img/char-worry-01.png" alt="" width="96" height="96" />
-          </span>
-          <p class="worry-bubble"><b>Q.</b> 日本語もまだなのに、英語を始めて大丈夫？</p>
-        </li>
-        <li>
-          <span class="worry-face">
-            <img src="img/logo_top.png" alt="BabyLingo!" width="96" height="96" />
-          </span>
-          <p class="worry-bubble"><b>A.</b> 2歳までが最も自然に両立できるゴールデンタイムです。</p>
-        </li>
-        <li>
-          <span class="worry-face" aria-hidden="true">
-            <img src="img/char-worry-02.png" alt="" width="96" height="96" />
-          </span>
-          <p class="worry-bubble"><b>Q.</b> 英語はもう少し大きくなってからでいいのでは？</p>
-        </li>
-        <li>
-          <span class="worry-face">
-            <img src="img/logo_top.png" alt="BabyLingo!" width="96" height="96" />
-          </span>
-          <p class="worry-bubble"><b>A.</b> 「言語の黄金期である0〜3歳」を逃さないことが最短ルートです。</p>
-        </li>
-        <li>
-          <span class="worry-face" aria-hidden="true">
-            <img src="img/char-worry-03.png" alt="" width="96" height="96" />
-          </span>
-          <p class="worry-bubble"><b>Q.</b> 英語をやらせたいけど、結局何をするのが正解？</p>
-        </li>
-        <li>
-          <span class="worry-face">
-            <img src="img/logo_top.png" alt="BabyLingo!" width="96" height="96" />
-          </span>
-          <p class="worry-bubble"><b>A.</b> 教室やインターでも高額教材でもなく、「日常の中に英語がある環境（おうち英語）」を作ることです。</p>
-        </li>
-        <li>
-          <span class="worry-face" aria-hidden="true">
-            <img src="img/char-worry-04.png" alt="" width="96" height="96" />
-          </span>
-          <p class="worry-bubble"><b>Q.</b> 親の私が英語苦手なのに、家で教えられる…？</p>
-        </li>
-        <li>
-          <span class="worry-face">
-            <img src="img/logo_top.png" alt="BabyLingo!" width="96" height="96" />
-          </span>
-          <p class="worry-bubble"><b>A.</b> 親御さんの英語力は一切関係ありません。</p>
-        </li>
+      <h2 class="section-ttl">こんなモヤモヤ、<br />ありませんか？</h2>
+      <ul class="worry-plain">
+        <li>日本語もまだなのに、英語を始めて大丈夫？</li>
+        <li>英語はもう少し大きくなってからでいいのでは？</li>
+        <li>英語をやらせたいけど、結局何をするのが正解？</li>
+        <li>親の私が英語苦手なのに、家で教えられる…？</li>
       </ul>
-      <p class="panel-note">バイリンガルキッズを育てる方法を詳しく教えます！</p>
-      <p style="text-align:center;margin-top:14px">
-        <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">説明会で詳しく見る<span class="go" aria-hidden="true">→</span></a>
-      </p>
       </div>
     </section>
 
@@ -2047,25 +2061,39 @@
     <section class="sec-lux is-mint" id="qa">
       <div class="sec-lux-inner">
       <p class="sec-ribbon is-mint">気になること、先に解消</p>
-      <h2 class="section-ttl">よくあるご質問</h2>
+      <h2 class="section-ttl">科学と成功者が<br />導き出した答え</h2>
       <div class="faq-box">
       <details class="faq">
-        <summary>お母さまが英語をしゃべれなくても大丈夫？</summary>
-        <p>大丈夫です。語りかけの仕組みがあります。</p>
+        <summary>Q1. 日本語もまだなのに、英語を始めて大丈夫？</summary>
+        <p><b>A.</b> 心配いりません。2歳までに始めることで無理なく自然に両立でき、英語が話せるだけでなく「思考力や集中力のある賢い子」に育ちます。</p>
+        <p>言語科学の研究でも、乳幼児期のバイリンガル環境は脳にとって最も良い刺激と証明済み。日本語の発達を邪魔することなく、2つの言葉を自然に吸収しながら、これからの時代に必要な高い思考力や対応力が日々の生活の中で育ちます。</p>
       </details>
       <details class="faq">
-        <summary>日本語と英語で混乱しませんか？</summary>
-        <p>混乱しません。</p>
+        <summary>Q2. 英語はもう少し大きくなってからでいいのでは？</summary>
+        <p><b>A.</b> 「言語の黄金期である0〜3歳」を逃さないことが、最も無理のない最短ルートです。</p>
+        <p>大きくなってから文法や単語を「勉強」として詰め込むのは、子どもにとっても大きな負担になります。あらゆる周波数の音をそのまま丸ごと吸収できるのは乳幼児期ならではの特権。この黄金期にスタートすることで、苦労することなく自然な「英語耳」と「きれいな発音」が定着します。</p>
       </details>
       <details class="faq">
-        <summary>かけ流しだけで話せますか？</summary>
-        <p>それだけでは話せません。語りかけが必要です。</p>
+        <summary>Q3. 英語をやらせたいけど、結局何をするのが一番効果的？</summary>
+        <p><b>A.</b> 週1回の教室や高額教材、インターではなく、「日常の中に英語がある環境（おうち英語）」を作ることです。</p>
+        <p>バイリンガルに育つための決定的な条件は「生活の中で当たり前に英語にふれる時間」です。年間数十時間の英会話教室や、家に置いたままの高額教材、家庭で日本語に戻ってしまうプレスクールでは定着しないのが実情です。だからこそ、日々の暮らしそのものを英語空間に変える「おうち英語」が最も効果を発揮します。</p>
       </details>
       <details class="faq">
-        <summary>BabyParkに通いながらでも？</summary>
-        <p>大丈夫です。相性がいいです。</p>
+        <summary>Q4. かけ流しだけで話せるようになる？</summary>
+        <p><b>A.</b> かけ流し「だけ」では話せるようになりません。</p>
+        <p>音に耳を慣らす効果はありますが、発話につなげるには「親子のやりとり（語りかけ）」が不可欠であることが科学的にも証明されています。BabyLingo!は、親御さんが英語を話せなくても、生活の中で自然に語りかけができる仕組みで子どもの発話を引き出します。</p>
+      </details>
+      <details class="faq">
+        <summary>Q5. 親が英語苦手なのに、家で教えられる？</summary>
+        <p><b>A.</b> 親御さんの英語力は一切関係ありません。英語が話せなくても子どもの言葉を自然と引き出す「専用の仕組み」があります。</p>
+        <p>親御さんがペラペラと英語を話す必要はまったくありません。自らも英語が話せなかった親たちが研究を重ね、「親が話せなくても日常のやりとりで子どもの発話を促せる特許メソッド」を開発しました。英語に自信がないママ・パパでも、今日から迷わず安心して取り組めます。</p>
       </details>
       </div>
+      <p class="faq-note">※詳しいエビデンスや実践法は説明会でお伝えします</p>
+      <p class="qa-close">バイリンガルキッズを育てる方法を詳しく教えます！</p>
+      <p class="qa-cta">
+        <a class="btn" href="https://lingo.babypark.jp/seminars" target="_blank" rel="noopener">無料説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
+      </p>
       </div>
     </section>
 
@@ -2107,7 +2135,7 @@
         <p class="cta-ribbon">無料ZOOM説明会 受付中！</p>
         <p class="cta-lead">説明会で、進め方の全体像がつかめます</p>
         <p class="cta-hint">数項目で申込み完了！</p>
-        <a class="btn" href="https://babylingo-english.jp/meeting" target="_blank" rel="noopener">無料ZOOM説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
+        <a class="btn" href="https://lingo.babypark.jp/seminars" target="_blank" rel="noopener">無料ZOOM説明会に申し込む<span class="go" aria-hidden="true">→</span></a>
       </div>
     </section>
 
